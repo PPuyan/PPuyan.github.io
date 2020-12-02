@@ -169,9 +169,6 @@ a {
   font-size: 1rem !important;
   padding: 0 0.2rem;
 }
-::-webkit-scrollbar {
-  width: 0rem;
-}
 ::selection {
   color: #333;
   background: #bbdefb;
@@ -2011,7 +2008,7 @@ a {
 
 
 .overflow {
-  overflow: hidden;
+  overflow: auto;
 }
 #header .icon-sousuo,
 #side .icon-sousuo {
@@ -2541,7 +2538,7 @@ a {
   padding: 0.3rem;
   box-sizing: border-box;
   position: absolute;
-  overflow: hidden;
+  overflow: auto;
 }
 #container .main {
   display: -webkit-box;

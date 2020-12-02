@@ -3,16 +3,16 @@ require([
   'util',
   'valine',
   'chart',
-  'pagemap',
+  //'pagemap',
   'registerSW',
   'fancybox',
   'confirm',
   'share',
   'search'
-], function($, util, valine, chart, pagemap) {
+], function($, util, valine, chart, /*pagemap*/) {
   'use strict'
 
-  pagemap(document.querySelector('#pagemap'), {
+  /*pagemap(document.querySelector('#pagemap'), {
     viewport: null,
     styles: {
       'header,footer,section,article': 'rgba(0, 0, 0, 0.08)',
@@ -23,7 +23,7 @@ require([
     view: 'rgba(0, 0, 0, 0.05)',
     drag: ' rgba(0, 0, 0, 0.1)',
     interval: null
-  })
+  })*/
 
   // valine评论
   var API_ID = (HUHU_CONFIG.valine && HUHU_CONFIG.valine.API_ID) || ''
