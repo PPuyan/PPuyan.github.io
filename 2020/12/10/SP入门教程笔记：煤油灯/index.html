@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <script>
+  var _hmt = _hmt || []
+  ;(function() {
+    var hm = document.createElement('script')
+    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(hm, s)
+  })()
+</script> 
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    
+    <title>
+      Substance Painter入门教程笔记：煤油灯 - PPuyan
+    </title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    
+<link rel="stylesheet" href="/style/style.css">
+
+  <meta name="generator" content="Hexo 5.2.0"></head>
+  <body>
+    <!--<canvas id='pagemap'></canvas>-->
+    
+    <div id="post-toc" class="animated hiddenToc hide">
+      <span class="title">Toc</span>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-text">快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A6%81%E7%82%B9"><span class="toc-text">要点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Texture-set-material-ID"><span class="toc-text">Texture set &#x3D; material ID</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E5%A4%96%E9%83%A8%E8%B4%B4%E5%9B%BE"><span class="toc-text">导入外部贴图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%B1%82%E6%96%87%E4%BB%B6%E5%A4%B9%E5%92%8C%E6%99%BA%E8%83%BD%E6%9D%90%E8%B4%A8"><span class="toc-text">图层文件夹和智能材质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%B1%82%E8%A6%86%E7%9B%96"><span class="toc-text">图层覆盖</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-text">流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%80%8F%E6%98%8E%E6%9D%90%E8%B4%A8"><span class="toc-text">创建透明材质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%83%98%E7%84%99%E8%B4%B4%E5%9B%BE"><span class="toc-text">烘焙贴图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E6%96%B0%E7%83%98%E7%84%99ID%E8%B4%B4%E5%9B%BE"><span class="toc-text">重新烘焙ID贴图</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%9F%BA%E7%A1%80%E6%9D%90%E8%B4%A8"><span class="toc-text">创建基础材质</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A2%9C%E8%89%B2%E5%9F%BA%E7%A1%80%E5%B1%82"><span class="toc-text">颜色基础层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B2%97%E7%B3%99%E5%BA%A6%E5%B1%82"><span class="toc-text">粗糙度层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B2%B9%E8%BF%B9%E6%96%91%E7%82%B9%E5%B1%82"><span class="toc-text">油迹斑点层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%B9%E7%BC%98%E6%9A%97%E6%B7%A1"><span class="toc-text">边缘暗淡</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%8D%E5%81%9A%E4%B8%80%E5%B1%82%E5%8F%98%E5%8C%96"><span class="toc-text">再做一层变化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E5%B1%82%E9%A2%9C%E8%89%B2%E5%8F%98%E5%8C%96"><span class="toc-text">第三层颜色变化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%93%81%E9%94%88%E6%9D%90%E8%B4%A8"><span class="toc-text">铁锈材质</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E6%9D%90%E8%B4%A8%E5%88%9B%E5%BB%BA%E9%81%AE%E7%BD%A9"><span class="toc-text">为材质创建遮罩</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E9%93%81%E9%94%88%E9%A2%9C%E8%89%B2%E6%B7%BB%E5%8A%A0%E6%BB%A4%E9%95%9C"><span class="toc-text">为铁锈颜色添加滤镜</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E6%9D%90%E8%B4%A8%E7%9A%84%E5%BA%94%E7%94%A8%E5%92%8C%E5%9B%BE%E5%B1%82%E9%93%BE%E6%8E%A5"><span class="toc-text">智能材质的应用和图层链接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%BE%E5%B1%82%E9%93%BE%E6%8E%A5"><span class="toc-text">图层链接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%94%E5%88%B7%E7%B3%BB%E7%BB%9F"><span class="toc-text">笔刷系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%B9%E7%90%86%E6%98%A0%E5%B0%84%E6%A8%A1%E5%BC%8F"><span class="toc-text">纹理映射模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%8B%E9%9A%86%E5%B7%A5%E5%85%B7"><span class="toc-text">克隆工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%9A%E5%AE%9A%E7%82%B9%E7%B3%BB%E7%BB%9F"><span class="toc-text">锚定点系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E5%AD%97%E7%BB%86%E8%8A%82"><span class="toc-text">文字细节</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E6%96%87%E5%AD%97%E5%A2%9E%E5%8A%A0%E9%93%81%E9%94%88%E5%BD%B1%E5%93%8D"><span class="toc-text">为文字增加铁锈影响</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%91%E5%B1%9E%E6%9D%90%E8%B4%A8"><span class="toc-text">金属材质</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%B9%E7%BC%98%E9%81%AE%E7%BD%A9"><span class="toc-text">边缘遮罩</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8ID%E8%B4%B4%E5%9B%BE%E5%88%B6%E4%BD%9C%E9%81%AE%E7%BD%A9"><span class="toc-text">使用ID贴图制作遮罩</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%81%AF%E8%8A%AF%E6%9D%90%E8%B4%A8"><span class="toc-text">灯芯材质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%A1%E5%9E%A2%E6%9D%90%E8%B4%A8"><span class="toc-text">污垢材质</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B1%A1%E5%9E%A2%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B"><span class="toc-text">污垢自上而下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%BB%E7%92%83%E6%9D%90%E8%B4%A8"><span class="toc-text">玻璃材质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93"><span class="toc-text">渲染</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E8%B4%B4%E5%9B%BE"><span class="toc-text">导出贴图</span></a></li></ol></li></ol></li></ol>
+    </div>
+    
+    <div id="fixed-menu-wrap">
+      <span class="iconfont icon-sousuo search-box menu-reset"></span>
+      <span class="icon-toc menu-reset">Toc</span>
+      <span class="iconfont icon-arrowup menu-reset"></span>
+    </div>
+    <div id="fixed-menu">
+      <span class="iconfont icon-menu-"></span>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="search-shade" class="animated hiddenSearch hide">
+      <div class="input-wrap">
+        <span class="iconfont icon-sousuo search-box"></span>
+        <input type="text" placeholder="Search" />
+        <span class="iconfont icon-close"></span>
+      </div>
+      <div class="search-result">
+        <div class="meta">
+          <span><b id="result-count">0</b> results found</span>
+          <img src="/images/logo.jpeg" />
+        </div>
+        <ul id="result-box"></ul>
+      </div>
+    </div>
+    <div id="menu-mask" class="animated hideMenuMask hide">
+      <span class="iconfont icon-close"></span>
+      <div class="nav">
+        
+        <a href="/" class="">
+          首页
+        </a>
+        
+        <a href="/archives" class="">
+          归档
+        </a>
+        
+        <a href="/categories" class="">
+          分类
+        </a>
+        
+        <a href="/tags" class="">
+          标签
+        </a>
+        
+        <a href="/friends" class="">
+          友链
+        </a>
+        
+        <a href="/about" class="">
+          关于
+        </a>
+        
+      </div>
+    </div>
+    <div id="header">
+      <div class="intro">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpeg')"></a>
+        <div class="author">PPuyan</div>
+      </div>
+      <div class="nav">
+        <span class="iconfont icon-menu menu-icon"></span>
+        <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a>
+      </div>
+    </div>
+    <div id="side" class="animated bounceInLeft">
+      <div class="shrink">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpeg')"></a>
+        <span class="iconfont icon-menu toggle-icon"></span>
+        <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a>
+      </div>
+      <div class="magnify">
+        <div class="about">
+          <div class="author">PPuyan</div>
+          <a href="/" class="logo" style="background-image: url('/images/logo.jpeg')"></a>
+        </div>
+
+        <div class="nav">
+          
+          <a href="/" class="">
+            首页
+          </a>
+          
+          <a href="/archives" class="">
+            归档
+          </a>
+          
+          <a href="/categories" class="">
+            分类
+          </a>
+          
+          <a href="/tags" class="">
+            标签
+          </a>
+          
+          <a href="/friends" class="">
+            友链
+          </a>
+          
+          <a href="/about" class="">
+            关于
+          </a>
+          
+          <a href="#" class="search-box">
+            <span class="iconfont icon-sousuo"></span>
+          </a>
+        </div>
+        <div class="bottom">
+          <div class="follow">
+            
+            <a href="https://github.com/shixiaohu2206" target="_block">
+              <span class="iconfont icon-github"></span>
+            </a>
+             
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div class="main animated bounceInRight delay-0.7s">
+        <article class="post-entry">
+    <div class="header">
+      
+      <div class="title">Substance Painter入门教程笔记：煤油灯</div>
+      <div class="meta">
+        <span class="item">
+          <span class="iconfont icon-time-circle"></span>
+          <span>2020/12/10</span>
+        </span>
+
+        
+          <span class="item leancloud-visitors" id="/2020/12/10/SP%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%85%A4%E6%B2%B9%E7%81%AF/" data-flag-title="Substance Painter入门教程笔记：煤油灯">
+            <span class="iconfont icon-eye1"></span>
+            <span class="leancloud-visitors-count"></span>
+          </span>
+        
+
+         
+        <span class="item">
+          <span class="iconfont icon-folder"></span>
+          <span>
+              
+                
+                  <a href="/categories/学习笔记">学习笔记</a>
+                
+              
+          </span>
+        </span>
+        
+        
+         
+          <span class="item">
+            <span class="iconfont icon-tag1"></span>
+            <span>
+                
+                  
+                    <a href="/tags/Substance Painter">Substance Painter</a>
+                  
+                
+            </span>
+          </span>
+         
+      </div>
+      <div>
+      </div>
+    </div>
+
+    <html><head></head><body><h1 id="前言">前言<a class="post-anchor" href="#前言"></a></h1><p>​    初次接触Substance Painter，主要为了熟悉SP界面和工作流程。本文并非教程，只是记录学习轨迹，所以开门见山地贴出教程地址，有兴趣可以前往学习。</p>
+<p>教程地址：</p>
+<p><a target="_blank" rel="noopener" href="https://academy.substance3d.com/courses/substance-painter-2018-%E5%88%9D%E5%AD%A6%E8%80%85/youku-XMzY4MTY1NDU0NA=="><strong>官网：SUBSTANCE PAINTER 2018 初学者</strong></a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Ut411p7xa?p=1"><strong>B站：Substance Painter 入门教程：煤油灯</strong></a></p>
+<h1 id="正文">正文<a class="post-anchor" href="#正文"></a></h1><h2 id="快捷键">快捷键<a class="post-anchor" href="#快捷键"></a></h2><p>视图旋转：alt+左键</p>
+<p>视图缩放：alt+右键</p>
+<p>视图平移：alt+中键</p>
+<p>旋转环境光贴图：shift+右键</p>
+<p>在模型上选择Texture set（材质）：ctrl+alt+右键</p>
+<p>循环贴图显示模式：shift+B</p>
+<p>返回材质模式：M</p>
+<p>循环通道显示：C</p>
+<p>笔刷大小：ctrl+右键左右移动</p>
+<p>笔刷alpha硬度值：ctrl+右键上下移动</p>
+<p>笔刷流量：ctrl+左键左右移动</p>
+<p>阻止画刷叠加构建：A</p>
+<p>旋转笔刷alpha贴图：ctrl+左键上下移动</p>
+<p>画直线：左键+shift</p>
+<p>直线按15°刻度吸附：shift+ctrl+左键</p>
+<p>Stencil模板：s+右键缩放，s+左键旋转，s+中键移动</p>
+<p>笔刷黑白切换：x</p>
+<h2 id="要点">要点<a class="post-anchor" href="#要点"></a></h2><h3 id="Texture-set-material-ID">Texture set = material ID<a class="post-anchor" href="#Texture-set-material-ID"></a></h3><p>在SP中Texture set（纹理设置）是三维软件中设置的Material ID（材质ID）</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/Texture%20set=Material%20ID.png" data-caption="Texture set=material ID" data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/Texture%20set=Material%20ID.png" alt="Texture set=material ID"></a>
+
+<h3 id="导入外部贴图">导入外部贴图<a class="post-anchor" href="#导入外部贴图"></a></h3><p>Shelf -> importing resources</p>
+<p>为导入的资源创建关键字或标签。</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607848386(1).jpg" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607848386(1).jpg" alt></a>
+
+<h3 id="图层文件夹和智能材质">图层文件夹和智能材质<a class="post-anchor" href="#图层文件夹和智能材质"></a></h3><p>使用图层文件夹方便管理材质。</p>
+<p><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607848794(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607848794(1).png" alt></a></p>
+<p>右键这个文件夹可以创建智能材质，创建智能材质会自动存储烘焙好的贴图，方便下次使用的时候自动设置。</p>
+<p>同样的也可以创建智能遮罩。</p>
+<h3 id="图层覆盖">图层覆盖<a class="post-anchor" href="#图层覆盖"></a></h3><p>上面图层覆盖下面图层的效果，比如<strong>Height</strong></p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607856209(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607856209(1).png" alt></a>
+
+<p>在第一个层中Height值为0，但是下面的图层中存在高度值，并仍然显示。</p>
+<p>切换图层中的显示模式BaseColor为Height模式，可以看到默认的混合模式为线性添加，意味这所以图层高度值是叠加的。</p>
+<p>如果要当前图层覆盖下面所有图层，将混合模式设置为normal标准</p>
+<h2 id="流程">流程<a class="post-anchor" href="#流程"></a></h2><h3 id="创建透明材质">创建透明材质<a class="post-anchor" href="#创建透明材质"></a></h3><p>创建新shader并增加不透明度（opacity）</p>
+<p>PS：2020新版SP创建shader被放置在纹理设置里<br><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/create%20shader.png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/create%20shader.png" alt></a> <a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/opacity.png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/opacity.png" alt></a></p>
+<p>设置Shader：pbr-metal-rough-with-alpha-blending</p>
+<p><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607591975(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607591975(1).png" alt></a></p>
+<p>新建填充层，并设置透明度（右键视图窗口快捷调出属性面板）</p>
+<p><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607592695(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607592695(1).png" alt></a></p>
+<h3 id="烘焙贴图">烘焙贴图<a class="post-anchor" href="#烘焙贴图"></a></h3><p>选择Texture set list里的base1打开纹理设置进行烘焙</p>
+<p><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/160759354.png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/160759354.png" alt></a></p>
+<p>教程中直接使用高模制作贴图，所以不用烘焙法线贴图和厚度贴图。在ID选项中把Color Source的Vertex Color改为Material Color。（新版默认是材质颜色）在高模选项中选择<strong>lantern_id</strong>,为了烘焙ID贴图，教程中弄了一个一样的模型，但是在模型的不同材质间赋予了不同颜色。</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607596131(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607596131(1).png" alt></a>
+
+<h4 id="重新烘焙ID贴图">重新烘焙ID贴图<a class="post-anchor" href="#重新烘焙ID贴图"></a></h4><p>烘焙的时候造成投射错误，会让后续使用ID贴图制作mask的时候存在错误。所以应该在烘焙的时候炸开（分离）模型。</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607606365(1).jpg" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607606365(1).jpg" alt></a>
+
+<p>在烘焙设置的<strong>Match</strong>选择中选择<strong>by mesh name</strong>，在下面的选项中更改高低模型对应的后缀，例如教程里的<strong>_id、_main</strong>。通过组名称来分离模型，SP在计算光线追踪的时候就会单独计算名字相匹配的模型。</p>
+<p><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607606797(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607606797(1).png" alt></a><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607606922(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607606922(1).png" alt></a></p>
+<h3 id="创建基础材质">创建基础材质<a class="post-anchor" href="#创建基础材质"></a></h3><h4 id="颜色基础层">颜色基础层<a class="post-anchor" href="#颜色基础层"></a></h4><p>选择<strong>Texture set list=>base1</strong></p>
+<p>新建图层<strong>base</strong>调节颜色</p>
+<h4 id="粗糙度层">粗糙度层<a class="post-anchor" href="#粗糙度层"></a></h4><p>新建图层<strong>rough</strong>并添加黑色遮罩，关闭除rough以外的通道</p>
+<p>在遮罩下添加<strong>Generator</strong>生成器<strong>dirt</strong>（根据之前烘焙的贴图程序化的生成污渍mask）</p>
+<p>解决UV接缝，打开生成器里的<strong>Triplannar</strong>（三面投射）*<u>后续使用到新的图层或填充也要开启<strong>三面投射</strong></u>*</p>
+<p>在<strong>rough->mask</strong>下再新建一层并填充特效（<strong>图层-添加特效-添加填充</strong>）。在<strong>Grayscale</strong>添加<strong>Grunge Paint Scratch</strong>灰度图</p>
+<p>改变<strong>Grunge Paint Scratch</strong>混合模式为<strong>Lighten（max）</strong></p>
+<p>实现效果：<br><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607840694(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607840694(1).png" alt></a><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607840888(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607840888(1).png" alt></a></p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607840943(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607840943(1).png" alt></a>
+
+
+<h4 id="油迹斑点层">油迹斑点层<a class="post-anchor" href="#油迹斑点层"></a></h4><p>新建图层<strong>paint specks</strong>并添加黑色遮罩，关闭除height以外的通道，设置<strong>Height</strong>值为正数。</p>
+<p>与rough类似，在mask上添加填充特效。</p>
+<p>同样的为了避免UV接缝，打开三面投射。</p>
+<p>在mask的填充中添加灰度图<strong>BnW Spots 1</strong>，适当调节参数</p>
+<p>实现效果：</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607842961(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607842961(1).png" alt></a>
+
+<h4 id="边缘暗淡">边缘暗淡<a class="post-anchor" href="#边缘暗淡"></a></h4><p>新建图层，添加黑色遮罩，添加<strong>Mask Editor</strong>生成器，调节<strong>curvature</strong>曲率的参数</p>
+<p><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607843665(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607843665(1).png" alt></a></p>
+<p>在mask上再添加新的填充特效。使用<strong>Grunge Rust Fine</strong>灰度图。并改变混合模式为<strong>Multip</strong></p>
+<p>实现效果：可以看到边缘有一些暗淡和无序的脏迹的效果。</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607844245(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607844245(1).png" alt></a>
+
+<h4 id="再做一层变化">再做一层变化<a class="post-anchor" href="#再做一层变化"></a></h4><p>复制上一层图层。更换新的填充特效。使用<strong>Grunge concrete old</strong>灰度图。调节层的颜色，复制多一层是为了使用不同的颜色，增加细微变化。</p>
+<p>改变整个图层的混合模式为<strong>Overlay</strong>叠加，并降低透明度</p>
+<p>实现效果：</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607845152(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607845152(1).png" alt></a>
+
+<h4 id="第三层颜色变化">第三层颜色变化<a class="post-anchor" href="#第三层颜色变化"></a></h4><p>添加黑色遮罩，添加填充特效，添加<strong>Light</strong>生成器。</p>
+<p>添加一层填充特效，通过脏迹图来调节light生成器。添加<strong>Grunge concrete old</strong>灰度图，改变混合模式为<strong>Multiply</strong></p>
+<p>适当调节颜色，并更改图层混合模式为<strong>Value</strong></p>
+<p>添加生成器<strong>Dirt</strong>，借助生成器<strong>Dirt</strong>让高光颜色更集中。改变混合模式为<strong>Multiply</strong></p>
+<p>实现效果：</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607847909(1).jpg" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607847909(1).jpg" alt></a>
+
+<h3 id="铁锈材质">铁锈材质<a class="post-anchor" href="#铁锈材质"></a></h3><p>创建新图层<strong>base</strong>打开color，height，rough，ao通道。默认没有ao通道需要通过texture set设置面板里面添加。为各自通道添加导入的rust贴图。调节高度值</p>
+<p><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607850338(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607850338(1).png" alt></a></p>
+<h4 id="为材质创建遮罩">为材质创建遮罩<a class="post-anchor" href="#为材质创建遮罩"></a></h4><p>创建图层文件夹，把上面的base图层放入其中。右键文件夹创建黑色遮罩层。</p>
+<p>创建填充特效，选择<strong>Grunge 004</strong>作为灰度图</p>
+<p>在这里我们不使用三面投射的方式，因为这个方式会出现一些映射模糊，直接使用UV投射。</p>
+<p>创建填充特效，选择<strong>Grunge concrete old</strong>作为灰度图，设置三面映射。更改混合模式为Lighten（max）</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607851177.png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607851177.png" alt></a>
+
+<p>创建<strong>Light</strong>生成器（分离铁锈积聚的地方）改变混合模式为<strong>Multiply</strong>，只在斜面上出现铁锈。</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607851344(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607851344(1).png" alt></a>
+
+<p>创建<strong>Dirt</strong>生成器，混合模式为Lighten（max）</p>
+<p>创建<strong>Mask Editor</strong>生成器，主要为了把铁锈集中在边缘。</p>
+<p>为<strong>Mask Editor</strong>增加第一张贴图：<strong>Grunge concrete old</strong>灰度图控制，并使用Multiply混合模式。</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607852651(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607852651(1).png" alt></a>
+
+<p>增加第二张贴图：<strong>Grunge scratch rough</strong>，并使用<strong>Lighten（max）</strong>混合模式，这张贴图主要增加划痕效果</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607853399(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607853399(1).png" alt></a>
+
+<p>最后把<strong>Mask Editor</strong>改为Lighten（max）混合模式</p>
+<p>最后效果：</p>
+<p><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607853600(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607853600(1).png" alt></a></p>
+<h4 id="为铁锈颜色添加滤镜">为铁锈颜色添加滤镜<a class="post-anchor" href="#为铁锈颜色添加滤镜"></a></h4><p>主要是更改铁锈颜色</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607854571(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607854571(1).png" alt></a>
+
+<h3 id="智能材质的应用和图层链接">智能材质的应用和图层链接<a class="post-anchor" href="#智能材质的应用和图层链接"></a></h3><p>智能材质可以直接拖拽到新的Texture set上，会自动设置对应烘焙好的贴图。更新其中一个Texture set的设置，另一个不会跟着变化。</p>
+<h4 id="图层链接">图层链接<a class="post-anchor" href="#图层链接"></a></h4><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607855671(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607855671(1).png" alt></a>
+
+<h3 id="笔刷系统">笔刷系统<a class="post-anchor" href="#笔刷系统"></a></h3><p>笔刷大小，笔刷流量，笔刷透明度，笔刷抖动，shelf中的笔刷预设，延迟笔刷，路径笔刷</p>
+<p>保存笔刷预设：在绘画模式下属性面板中右键可以保存预设</p>
+<ul>
+<li>tool工具预设会同时保存笔刷和材质</li>
+</ul>
+<ul>
+<li>material材质预设只会保存材质</li>
+</ul>
+<ul>
+<li>brush笔刷预设只会保存笔刷</li>
+</ul>
+<p>绘画校准</p>
+<p><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607867005(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607867005(1).png" alt></a></p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607867139(1).jpg" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607867139(1).jpg" alt></a>
+
+<p>分别是：镜头|wrap包裹|平面下的效果</p>
+<ul>
+<li>在UV模式下不会画出uv边界，都适用于3d/2d窗口</li>
+</ul>
+<p>Stencil模板：可以绘制图案。</p>
+<p><a href="C:\Users\puyan\AppData\Roaming\Typora\typora-user-images\image-20201213220741396.png" data-caption="image-20201213220741396" data-fancybox="images"><img src="C:\Users\puyan\AppData\Roaming\Typora\typora-user-images\image-20201213220741396.png" alt="image-20201213220741396"></a></p>
+<h3 id="纹理映射模式">纹理映射模式<a class="post-anchor" href="#纹理映射模式"></a></h3><p>类似上面的stencil，不同在于有完整的材质属性，可以跨多个通道进行映射而不是一个灰色通道。</p>
+<p>类似stencil的快捷键，同样使用s+鼠标键进行操作。使用的时候新建绘画图层，切换到映射模式，设置好需要映射的贴图即可开始绘制。</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607927889(1).jpg" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607927889(1).jpg" alt></a>
+
+<p>可以在显示设置里设置模板透明度。绘制的贴图颜色同样可以在层里面添加<strong>HSL滤镜</strong>进行调色</p>
+<h3 id="克隆工具">克隆工具<a class="post-anchor" href="#克隆工具"></a></h3><p>特使的混合模式，要使用克隆工具要先新建绘画图层，并且把需要进行克隆的通道图层混合模式设置成<strong>passthrough穿过</strong>，例如<strong>basecolor，height，ao</strong>等通道信息都设置成<strong>passthrough穿过</strong></p>
+<p>克隆模式是非破坏性的，更改克隆图层下面的图层属性后，克隆的东西也会随着更新，就是<strong>passthrough</strong>模式的作用</p>
+<p>克隆类似PS里面的印章。按住V键设置克隆源，就可以开始绘制。</p>
+<p><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607928953.png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607928953.png" alt></a></p>
+<h3 id="锚定点系统">锚定点系统<a class="post-anchor" href="#锚定点系统"></a></h3><h4 id="文字细节">文字细节<a class="post-anchor" href="#文字细节"></a></h4><p>更改笔刷的<strong>alpha贴图</strong>就可以印刷文字。</p>
+<p>增加文字的AO，通过增加滤镜<strong>HBAO</strong>达到效果。</p>
+<p><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607930022(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607930022(1).png" alt></a></p>
+<h4 id="为文字增加铁锈影响">为文字增加铁锈影响<a class="post-anchor" href="#为文字增加铁锈影响"></a></h4><p>使用锚定点。锚定点可以用来链接图层堆叠里的其中一个数据到另一个地方。</p>
+<p>为我们上面的文字图层增加锚定点。<strong>右键->添加锚定点</strong></p>
+<p>打开<strong>rust->mg_dirt</strong>下面的<strong>MicroHeight</strong>选择<strong>anchor points</strong>指定刚刚文字图层里面的锚定点。设置引用通道为<strong>Height</strong></p>
+<p>然后进入微细节调节数值。</p>
+<p><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607931000(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607931000(1).png" alt></a></p>
+<h3 id="金属材质">金属材质<a class="post-anchor" href="#金属材质"></a></h3><p>创建新的<strong>填充图层</strong>，使AO，高度信息覆盖下面图层。</p>
+<p>设置金属值为1</p>
+<p>添加<strong>Grunge rough dirty</strong>为<strong>Roughness</strong>贴图，设置三面映射。</p>
+<p>使用色阶调整roughness贴图：</p>
+<p>为图层增加levels特效，选择roughness通道作为受影响通道</p>
+<h5 id="边缘遮罩">边缘遮罩<a class="post-anchor" href="#边缘遮罩"></a></h5><p>复制上述图层，并调整更亮的颜色，使用遮罩，让这个更亮的颜色集中在边缘位置。</p>
+<p>添加黑色遮罩。添加<strong>Mask Editor</strong>生成器。</p>
+<p>为<strong>Mask Editor</strong>添加纹理<strong>Grunge Dirt Scratched</strong>，记得把Texture值拉到1，不然会不起作用。</p>
+<p>更改上述贴图的混合模式为Max（Lighen）</p>
+<p>使用层文件管理金属材质的时候，别忘了要把文件夹的AO和高度信息覆盖下面图层。</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607932778(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607932778(1).png" alt></a>
+
+<h4 id="使用ID贴图制作遮罩">使用ID贴图制作遮罩<a class="post-anchor" href="#使用ID贴图制作遮罩"></a></h4><p>为<strong>metal rough</strong>这个材质文件夹<strong>添加颜色选择遮罩</strong>，这里就要使用到上面步骤中烘焙到的ID贴图。</p>
+<p>选取ID颜色，指定金属部位。同时为了使金属部分也有铁锈，要把rust材质文件夹移动到最上层。</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607933111(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607933111(1).png" alt></a>
+
+<p>当初在制作rust材质的时候，没有使用金属通道，会导致铁锈部分看起来会太暗。</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607933608(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607933608(1).png" alt></a>
+
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607933484(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607933484(1).png" alt></a>
+
+<p>从金属通道可以看出来，<strong>metal rough</strong>占据了整个金属通道，而铁锈部分没有产生作用，这是不对的。我们把rust的金属通道打开，这时显示正确。</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607933759(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607933759(1).png" alt></a>
+
+<h3 id="灯芯材质">灯芯材质<a class="post-anchor" href="#灯芯材质"></a></h3><p>选择<strong>Texteure set->glass_enclosure</strong></p>
+<p>创建新的填充图层，类似的，我们使用层文件夹的形式创建遮罩。</p>
+<p>这里我们使用新的遮罩方式。</p>
+<p>为这个文件夹创建黑色遮罩，添加绘图特效。</p>
+<p>使用几何填充工具。</p>
+<p><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607934480(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607934480(1).png" alt></a></p>
+<p>在知道模型是分离的情况下可以使用模型填充，或者UV是分离的情况下也可以选择UV填充模式</p>
+<p>把这个<strong>wick</strong>材质的AO，高度信息覆盖下面图层。</p>
+<p>为这个<strong>base</strong>的高度通道，添加<strong>Fabric Alternate V</strong>贴图。并调整平铺值和UV比例值大小。</p>
+<p>添加<strong>HBAO</strong>滤镜。</p>
+<p>为这个<strong>base</strong>的basecolor通道添加<strong>Gradient Linear 1贴图</strong></p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607935624(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607935624(1).png" alt></a>
+
+<p>增加<strong>Gradient</strong>滤镜。调整灯芯的渐变颜色，适当的可以用使用<strong>paint特效</strong>，使用笔刷画，增加不规则感。</p>
+<h3 id="污垢材质">污垢材质<a class="post-anchor" href="#污垢材质"></a></h3><p>使用同样的方法，选择Texture set-> base1</p>
+<p>创建层文件夹，Height和AO通道下设置normal标准混合模式。</p>
+<p>创建填充图层，并添加黑色遮罩。</p>
+<p>添加<strong>dirt</strong>生成器</p>
+<p>添加填充特效，添加<strong>grunge concrete old</strong>作为灰度图，设置三面映射，<strong>Multiply</strong>混合模式</p>
+<h4 id="污垢自上而下">污垢自上而下<a class="post-anchor" href="#污垢自上而下"></a></h4><p>复制上面的图层，删除填充图层，改变生成器为<strong>Mask Editor</strong></p>
+<p>这次我们关闭curvature，打开<strong>position gradien方位渐变</strong>，调节参数，使得污垢自上而下。</p>
+<p>为这个生成器添加<strong>grunge concrete old</strong>贴图，并设置<strong>Multiply</strong>混合模式，主要为了打散污垢。</p>
+<p>调节方位渐变，使得污垢自上往下。</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607938912(1).jpg" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1607938912(1).jpg" alt></a>
+
+<h3 id="玻璃材质">玻璃材质<a class="post-anchor" href="#玻璃材质"></a></h3><p>玻璃材质主要是制作Roughness贴图。通过叠加多张sp自带的程序化贴图来使粗糙度有更多的变化。</p>
+<p>选择<strong>Texture -> glass1</strong></p>
+<p>添加新的填充图层命名为<strong>Glass</strong>关闭除<strong>Color，rough，opacity</strong>外的通道</p>
+<p>填加新的填充图层，添加黑色遮罩</p>
+<p>添加填充特效，加入<strong>Grunge rough dirty</strong>贴图。添加色阶特效</p>
+<p>添加填充特效，加入<strong>Grunge stains small hollow</strong>贴图，<strong>Lighten（max）</strong>混合模式</p>
+<p>添加填充特效，加入<strong>Grunge leaks</strong>贴图，<strong>Multiply</strong>混合模式</p>
+<p>调整这些贴图的平衡到适合的值。</p>
+<a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1608015823(1).jpg" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1608015823(1).jpg" alt></a>
+
+<p>最后把<strong>Glass</strong>中的颜色值调接近白色</p>
+<p>在渲染前先完善玻璃材质。为上面的玻璃添加之前创建好的<strong>dirt</strong>智能材质。</p>
+<h3 id="渲染">渲染<a class="post-anchor" href="#渲染"></a></h3><p>进入玻璃的Texture set->glass1</p>
+<p>打开顶部的Iray，进入着色器选项</p>
+<p>把折射拖到1</p>
+<p>进入显示设置可以调整背景，镜头，后处理等信息。</p>
+<p>在上面的Iray设置中可以调整渲染时间，采样率等。</p>
+<p>最终渲染效果：</p>
+<p><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1608022766(1).jpg" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1608022766(1).jpg" alt></a></p>
+<h3 id="导出贴图">导出贴图<a class="post-anchor" href="#导出贴图"></a></h3><p>SP中有预设好的很多渲染器和引擎的贴图模板配置。当然也可以手动添加模板。</p>
+<p><a target="_blank" rel="noopener" href="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1608023005(1).png" data-caption data-fancybox="images"><img src="https://picgo-1304444686.cos.ap-guangzhou.myqcloud.com/img/1608023005(1).png" alt></a></p>
+</body></html>
+
+  
+  <div class="post-guide">
+    <div class="item left">
+        
+    </div>
+    <div class="item right">
+        
+          <a href="/2020/12/02/Test/">Test</a>
+        
+    </div>
+  </div>
+
+  
+
+  <div class="post-copyright">
+    <div class="auth">
+      本文作者：<a href="https://ppuyan.github.io">ppuyan</a>
+    </div>
+    <div class="link">
+      永久链接：<a href="https://ppuyan.github.io/2020/12/10/SP%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%85%A4%E6%B2%B9%E7%81%AF/">https://ppuyan.github.io/2020/12/10/SP%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%85%A4%E6%B2%B9%E7%81%AF/</a>
+    </div>
+    <div class="declare">
+      版权声明：本文首发于<a href="https://ppuyan.github.io">ppuyan</a>的博客，转载请注明出处！
+    </div>
+  </div>
+
+  <div id="comment"></div>
+
+  
+  
+</article>
+        <footer>
+          <div class="copyright">
+            ©2020
+            <a href="https://ppuyan.github.io">ppuyan</a> Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> |
+            <a target="_blank" rel="noopener" href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
+    </div>
+  </body>
+  
+</html>
+<script type="text/javascript">
+                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"valine\":{\"API_ID\":\"NSQQTbdDfP8Ok2pLzxEt9Boz-gzGzoHsz\",\"API_KEY\":\"XqiS4lGV1vOhcFqPjVIoCHNg\"},\"service_worker\":{\"open\":false}}")
+                </script> <script type="text/javascript">window.addEventListener('load', function() {
+    
+    window.loadJs = function(d, m, a) {
+      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      var b = document.createElement('script')
+      b.defer = true
+      b.setAttribute('type', 'text/javascript')
+      b.setAttribute('charset', 'UTF-8')
+      b.setAttribute('async', 'true')
+      b.setAttribute('src', d)
+      m && b.setAttribute('data-main', '/scripts/app-built')
+      if (typeof a === 'function') {
+        if (window.attachEvent) {
+          b.onreadystatechange = function() {
+            var e = b.readyState
+            if (e === 'loaded' || e === 'complete') {
+              b.onreadystatechange = null
+              a()
+            }
+          }
+        } else {
+          b.onload = a
+        }
+      }
+      c.appendChild(b)
+    }
+    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","pagemap":"pagemap.min","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
+  })</script> <script type="text/javascript">
+                  ;(function() {
+                    var bp = document.createElement('script')
+                    var curProtocol = window.location.protocol.split(':')[0]
+                    if (curProtocol === 'https') {
+                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+                    } else {
+                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+                    }
+                    var s = document.getElementsByTagName('script')[0]
+                    s.parentNode.insertBefore(bp, s)
+                  })()
+                </script> 
