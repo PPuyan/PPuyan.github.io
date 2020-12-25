@@ -65,15 +65,17 @@ console.log("%c Github %c", "background:#333333; color:#ffffff", "", "https://gi
       desktop: function () {
         function center() {
           if ($(window).scrollTop() > 60) {
-            $(".navbar .center").addClass("hide");
-          } else {
+            //$(".navbar .center").addClass("hide");
             $(".navbar .center").removeClass("hide");
+          } else {
+            //$(".navbar .center").removeClass("hide");
+            $(".navbar .center").addClass("hide");
           }
         }
-        center();
+        //center();
         $(window).on("scroll", ZHAOO.utils.throttle(function () {
           center();
-          var before = $(this).scrollTop();
+          /*var before = $(this).scrollTop();
           $(window).on("scroll", function () {
             var after = $(this).scrollTop();
             if (before > after) {
@@ -82,7 +84,7 @@ console.log("%c Github %c", "background:#333333; color:#ffffff", "", "https://gi
               $(".navbar").addClass("hide");
             }
             before = after;
-          })
+          })*/
         }, 500));
       },
     },

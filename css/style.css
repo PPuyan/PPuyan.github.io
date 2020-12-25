@@ -1,6 +1,6 @@
 :root {
   --color-background: #fff;
-  --color-background-secondary: #fffbf0;
+  --color-background-secondary: #fffcf5;
   --color-background-rgb: 255, 255, 255;
   --color-text: #33333d;
   --color-text-secondary: #4e4e4e;
@@ -38,7 +38,7 @@
   background-color: rgba(var(--color-background-rgb), 0.7) !important;
 }
 .navbar {
-  background-color: rgba(var(--color-background-rgb), 0.8) !important;
+  background-color: rgba(var(--color-background-rgb), 0.1) !important;
 }
 .zui-notification {
   background-color: rgba(var(--color-background-rgb), 0.7) !important;
@@ -114,21 +114,8 @@ body div,
 body span {
   -webkit-tap-highlight-color: transparent;
 }
-::-webkit-scrollbar,
-::-webkit-scrollbar-track {
-  width: 6px;
-  height: 6px;
-  background-color: var(--color-background);
-}
-::-webkit-scrollbar-thumb {
-  background-color: var(--color-text);
-}
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-text);
-}
-::-webkit-scrollbar-thumb,
-::-webkit-scrollbar-thumb:hover {
-  transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+::-webkit-scrollbar {
+  display: none;
 }
 *::selection {
   background: #ffc773;
@@ -1422,7 +1409,7 @@ body span {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.75));
+  background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.35));
   padding: 30px;
 }
 .article .wrap .head .head-mask .head-title {
@@ -1547,6 +1534,7 @@ body span {
   border: none;
 }
 .article .wrap .main .content figure .code code {
+  background-color: var(--color-background-secondary);
   padding: 1em;
 }
 .article .wrap .main .content figure > * {
@@ -1745,7 +1733,7 @@ body span {
 .toc-wrap {
   position: fixed;
   top: 70px;
-  background-color: var(--color-background);
+  background-color: rgba(255,255,255,0);
   z-index: 10;
   padding: 20px;
   height: calc(100vh - 140px);
