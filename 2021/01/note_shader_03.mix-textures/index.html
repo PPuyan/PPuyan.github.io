@@ -1,0 +1,504 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Unity Shader学习笔记：03-纹理混合 - PPuyan</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  
+  <meta name="description" content="利用mipmap，制作细节贴图
+
+
+
+
+Detail ...">
+  <meta name="author" content="ppuyan">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-152x152.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/vs.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/zenburn.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: '',
+        wechat: ''
+      },
+      galleries: {
+        enable: false
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: 'https://images.weserv.nl/?url=https://i0.hdslb.com/bfs/album/eff30ad0e2ebca04244519fdd309d570d0755f75.jpg',
+          api: ''
+        },
+        motto: {
+          default: '',
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: false,
+        type: 'url',
+        image: '',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        model: 'normal'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+    </div>
+    <div class="center">Unity Shader学习笔记：03-纹理混合</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+  </nav>
+
+  
+
+<nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://w.wallhaven.cc/full/ne/wallhaven-nerkew.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Unity Shader学习笔记：03-纹理混合</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>一月 15, 2021</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2021/01/note_shader_03.mix-textures/" class="leancloud" data-flag-title="Unity Shader学习笔记：03-纹理混合"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2875</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h1 id="Detail-Texture"><a href="#Detail-Texture" class="headerlink" title="Detail Texture"></a>Detail Texture</h1><p>纹素是固定的，意味着即使2k图片，放大图像也将会变得很模糊</p>
+<p>需要引入细节贴图</p>
+<h2 id="两张贴图混合"><a href="#两张贴图混合" class="headerlink" title="两张贴图混合"></a>两张贴图混合</h2><p>这里使用两张贴图混合来模拟细节贴图</p>
+<p>使用灰度图作为细节贴图。</p>
+<p>原始贴图和灰度图</p>
+<p><img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-3/detail-textures/grid.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom: 80%;" /><img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-3/detail-textures/grid-detail.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom: 80%;" /></p>
+<p>使用这两张贴图是因为可以明显的看出效果。</p>
+<p>处理两张贴图</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs glsl">Properties &#123;<br>    _MainTex(“Texture”,<span class="hljs-number">2</span>D)=”white”&#123;&#125;<br>    _DetailTex(“DetailTexture”,<span class="hljs-number">2</span>D)=”gray”&#123;&#125;<span class="hljs-comment">//灰色值是（0.5，0.5，0.5）</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>为第二张贴图添加独立的uv</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs glsl">struct Input &#123;<br>    float2 uv : TEXCOORD0;<br>    float2 uvDetail : TEXCOORD1;<br>&#125;<br><br>struct v2f &#123;<br>    float2 uv : TEXCOORD0;<br>    float2 uvDetail : TEXCOORD1;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>同样的声明变量，然后在vert函数中与第一张贴图类似，这里省略</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs glsl">float4 frag (v2f i ) : SV_TARGET &#123;<br>	float4 color = tex2D(_MainTex, i.uv) * _Tint;<br>	color *= tex2D(_DetailTex, i.uvDetail) * <span class="hljs-number">2</span>;<span class="hljs-comment">//这里为什么要乘2呢↓</span><br>	<span class="hljs-keyword">return</span> color;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>把第二张贴图Tilling增大</p>
+<img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-3/detail-textures/detail-texture-inspector.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:50%;" />
+
+
+
+<p>这里为什么要乘2？</p>
+<p>我们要使两张贴图混合的时候，可以把两张图的颜色值乘起来。</p>
+<p>但是我们知道颜色值是0~1区间的，所以当两张图的颜色值相乘的时候，数值会变小，颜色会变暗。</p>
+<img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-3/detail-textures/multiplied.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:80%;" />
+
+
+
+<p>这里乘以2就是为了放大数值，这样作为细节贴图的时候，0~0.5的颜色会让原始贴图变暗，0.5~1的颜色会让原始贴图变亮。这就是为什么使用gray值和灰度图来处理细节贴图。</p>
+<p>如果不使用灰度图，而使用原图直接乘2的话，可以看到颜色都会很亮，因为所有值都被放大了两倍。</p>
+<img    class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-3/detail-textures/doubled.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="    style="zoom:80%;" /><span class="image-caption">直接乘2</span>
+
+<img    class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-3/detail-textures/grid-with-detail.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="    style="zoom:80%;" /><span class="image-caption">使用灰度图乘2</span>
+
+<p>使用灰度图可以看到明显的明暗变化。</p>
+<h2 id="远近渐变"><a href="#远近渐变" class="headerlink" title="远近渐变"></a>远近渐变</h2><p>使用细节贴图就是为了能在近距离观察的时候能够呈现更好的细节</p>
+<p>但是远距离观看的时候是不必要的，这样会能看到很明显的Tilling效果</p>
+<p>我们可以使用在远距离淡化图片为灰色的技巧，因为灰色不会引起颜色变化</p>
+<p>因为（0.5，0.5，0.5）*2=（1，1，1）是白色</p>
+<p>在使用的Detail Texture的贴图设置中启用Fadeout Mip Maps</p>
+<img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-3/detail-textures/fading-inspector.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom: 67%;" />
+
+<img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-3/detail-textures/grid-fading-detail.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:80%;" />
+
+<p>可以看到在远处不产生细节效果</p>
+<h2 id="实际运用效果"><a href="#实际运用效果" class="headerlink" title="实际运用效果"></a>实际运用效果</h2><p>因为我们使用了能看到明显效果的贴图才能看到有明显颜色渐变</p>
+<p>当使用常规贴图的时候</p>
+<p>大理石纹理</p>
+<p><img   class="lazyload" data-original=" https://catlikecoding.com/unity/tutorials/rendering/part-3/detail-textures/marble.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:80%;" /><img   class="lazyload" data-original=" https://catlikecoding.com/unity/tutorials/rendering/part-3/detail-textures/marble-detail.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:80%;" /></p>
+<p>可以看到有无细节贴图的差别。<br><img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-3/detail-textures/marble-close.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:50%;" /><img   class="lazyload" data-original=" https://catlikecoding.com/unity/tutorials/rendering/part-3/detail-textures/marble-close-detail.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:50%;" /></p>
+<h1 id="色彩空间"><a href="#色彩空间" class="headerlink" title="色彩空间"></a>色彩空间</h1><h2 id="伽马空间"><a href="#伽马空间" class="headerlink" title="伽马空间"></a>伽马空间</h2><p>对光强度的调整</p>
+<p>早期的显示器为非线性的特性，因为眼睛对不同光强度的敏感问题。</p>
+<p>颜色在较暗之间的变化大于较亮之间的变化。</p>
+<p>使用指数运算来区别明暗的压缩和拉伸范围。亮处压缩，暗处拉伸</p>
+<p>sRGB存储的是平均伽马值为1/2.2的颜色，所以使用2.2的伽马校正。</p>
+<h2 id="线性色彩空间"><a href="#线性色彩空间" class="headerlink" title="线性色彩空间"></a>线性色彩空间</h2><p>优点之一：实现更逼真的光照计算，因为现实中就是线性变化的，不是指数变化的。</p>
+<p>在Unity中使用伽马空间会直接访问原始的sRGB颜色和纹理数据</p>
+<p>但我们在Unity使用线性空间的时候，会先将这些数据转换到线性空间进行操作，再传回伽马空间。</p>
+<p>我们在颜色乘2的时候之前，在0.5附近的地方伽马校正后是0.5^2.2 ≈ 0.22，两倍就是0.44远小于1，所以颜色会变暗。在线性空间下应该要纠正为1/0.5^2.2 ≈ 4.59.</p>
+<p>UnityCG.cginc中提供了这样一个变量，<strong>unity_ColorSpaceDouble</strong>，我们使用它来取代之前的2倍。这个float4的值在rgb中是2或者4.59，但在a中是2。因为伽马校正不会作用与Alpha通道。</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs glsl">color *= tex2D(_DetailTex, i.uvDetail) * unity_ColorSpaceDouble;<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="贴图的Splatting"><a href="#贴图的Splatting" class="headerlink" title="贴图的Splatting"></a>贴图的Splatting</h1><p>用于地形贴图。地形通常包括草，沙石，雪等。 </p>
+<p>使用0~1区间作为两张贴图的线性插值，使之混合。</p>
+<p>我们再添加1张贴图用作Splatting</p>
+<p><img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-3/texture-splatting/binary-splat-map.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>注意导入贴图的设置</p>
+<p>绕过sRGB进行采样，这样就会无论在哪个色彩空间都是直接获取图片数据。</p>
+<p>在线性空间下生成mipmap。</p>
+<p>Splat贴图不应该进行Tilling所以设置成clamp模式。</p>
+<img   class="lazyload" data-original=" https://catlikecoding.com/unity/tutorials/rendering/part-3/texture-splatting/splat-map-binary-import.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:50%;" />
+
+
+
+<p>添加Properties，这里省略。</p>
+<img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-3/texture-splatting/two-textures-inspector.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:50%;" />
+
+<p>通常地形的贴图Tilling值都是相同的，而Splat贴图不需要Tiling变化。</p>
+<p>这里有个trick</p>
+<img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-3/texture-splatting/no-tiling-offset.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:50%;" />
+
+<p>我们使用一个uv通道来表示地形纹理的Tilling，上图中splat贴图的Tilling和Offset实际是运用到下面的两张地形贴图中的。</p>
+<p>在面板中不显示Tilling和Offset可以添加字段**[ NoScaleOffset ]**来隐藏</p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mathematica"><span class="hljs-punctuation">[</span> <span class="hljs-variable">NoScaleOffset</span> <span class="hljs-punctuation">]</span><span class="hljs-type">_Texture1</span>（“ <span class="hljs-built_in">Texture</span> <span class="hljs-number">1</span>”，<span class="hljs-number">2</span><span class="hljs-built_in">D</span>）<span class="hljs-operator">=</span> “ <span class="hljs-variable">white</span>” <span class="hljs-punctuation">&#123;</span><span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">[</span> <span class="hljs-variable">NoScaleOffset</span> <span class="hljs-punctuation">]</span><span class="hljs-type">_Texture2</span>（“ <span class="hljs-built_in">Texture</span> <span class="hljs-number">2</span>”，<span class="hljs-number">2</span><span class="hljs-built_in">D</span>）<span class="hljs-operator">=</span> “ <span class="hljs-variable">white</span>” <span class="hljs-punctuation">&#123;</span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>准备工作完成，我们开始使用Splat贴图</p>
+<p>对Splat贴图采样</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs glsl">float4 splat = tex2D(_MainTex, i.uvSplat);<span class="hljs-comment">//此时的uvSplat是直接传递物体uv的。</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>使用插值对两张图进行混合。</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-keyword">return</span> tex2D(_Texture1, i.uv) * splat.r +tex2D(_Texture2, i.uv) * (<span class="hljs-number">1</span> - splat.r);<br></code></pre></td></tr></table></figure>
+
+
+
+<p><img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-3/texture-splatting/modulating-both-textures.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<h1 id="RGB-的Splat贴图"><a href="#RGB-的Splat贴图" class="headerlink" title="RGB 的Splat贴图"></a>RGB 的Splat贴图</h1><p>单通道下实现两张贴图的混合，那么在RGB三个通道下可以使用四张贴图混合。第四张只需要1-r-g-b即可。需要规范的是，rgb三色加起来要＜=1；</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-keyword">return</span><br>   tex2D(_Texture1, i.uv) * splat.r +<br>   tex2D(_Texture2, i.uv) * splat.g +<br>   tex2D(_Texture3, i.uv) * splat.b +<br>   tex2D(_Texture4, i.uv) * (<span class="hljs-number">1</span> - splat.r - splat.g - splat.b);<br></code></pre></td></tr></table></figure>
+
+
+
+<p><img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-3/texture-splatting/four-textures-splatted.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://catlikecoding.com/unity/tutorials/rendering/part-3/">像猫一样编程~03</a></p>
+<!-- more -->
+
+<h1 id="Toc"><a href="#Toc" class="headerlink" title="Toc"></a>Toc</h1><a href="/2021/01/note_shader_01.render-pipline/" title="Unity Shader学习笔记：01-渲染管线">Unity Shader学习笔记：01-渲染管线</a>
+
+<a href="/2021/01/note_shader_02.shader-fundamentals/" title="Unity Shader学习笔记：02-着色器基础">Unity Shader学习笔记：02-着色器基础</a>
+
+<p><u>Unity Shader学习笔记：03-纹理混合</u></p>
+<a href="/2021/01/note_shader_04.illumination-model/" title="Unity Shader学习笔记：04-光照模型">Unity Shader学习笔记：04-光照模型</a>
+
+<hr>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>ppuyan</li>
+    <li><strong>本文链接：</strong><a href="https://ppuyan.github.io/2021/01/note_shader_03.mix-textures/index.html" title="https:&#x2F;&#x2F;ppuyan.github.io&#x2F;2021&#x2F;01&#x2F;note_shader_03.mix-textures&#x2F;index.html">https:&#x2F;&#x2F;ppuyan.github.io&#x2F;2021&#x2F;01&#x2F;note_shader_03.mix-textures&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/shader/" rel="tag">shader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unity/" rel="tag">unity</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2021/01/note_shader_04.illumination-model/"><i class="iconfont iconleft"></i>Unity Shader学习笔记：04-光照模型</a>
+    <a href="/2021/01/note_shader_02.shader-fundamentals/">Unity Shader学习笔记：02-着色器基础<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "NSQQTbdDfP8Ok2pLzxEt9Boz-gzGzoHsz",
+        app_key: "XqiS4lGV1vOhcFqPjVIoCHNg",
+        placeholder: "┬─┬ ノ( ‘ – ‘ノ)",
+        avatar: "robohash",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( false ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Detail-Texture"><span class="toc-text">Detail Texture</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%A4%E5%BC%A0%E8%B4%B4%E5%9B%BE%E6%B7%B7%E5%90%88"><span class="toc-text">两张贴图混合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9C%E8%BF%91%E6%B8%90%E5%8F%98"><span class="toc-text">远近渐变</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E8%BF%90%E7%94%A8%E6%95%88%E6%9E%9C"><span class="toc-text">实际运用效果</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%89%B2%E5%BD%A9%E7%A9%BA%E9%97%B4"><span class="toc-text">色彩空间</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%BD%E9%A9%AC%E7%A9%BA%E9%97%B4"><span class="toc-text">伽马空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E8%89%B2%E5%BD%A9%E7%A9%BA%E9%97%B4"><span class="toc-text">线性色彩空间</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B4%E5%9B%BE%E7%9A%84Splatting"><span class="toc-text">贴图的Splatting</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RGB-%E7%9A%84Splat%E8%B4%B4%E5%9B%BE"><span class="toc-text">RGB 的Splat贴图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Toc"><span class="toc-text">Toc</span></a></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: 'NSQQTbdDfP8Ok2pLzxEt9Boz-gzGzoHsz',
+      appKey: 'XqiS4lGV1vOhcFqPjVIoCHNg',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://ppuyan.github.io';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+
+  });
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
