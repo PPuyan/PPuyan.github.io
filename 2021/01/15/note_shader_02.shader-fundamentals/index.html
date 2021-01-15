@@ -1,0 +1,555 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Unity Shader学习笔记：02-着色器基础 - PPuyan</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  
+  <meta name="description" content="像猫一样编程~
+
+
+
+
+物体到图像Mesh rende...">
+  <meta name="author" content="ppuyan">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-152x152.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/vs.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/zenburn.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: '',
+        wechat: ''
+      },
+      galleries: {
+        enable: false
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: 'https://images.weserv.nl/?url=https://i0.hdslb.com/bfs/album/eff30ad0e2ebca04244519fdd309d570d0755f75.jpg',
+          api: ''
+        },
+        motto: {
+          default: '',
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: false,
+        type: 'url',
+        image: '',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        model: 'normal'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+    </div>
+    <div class="center">Unity Shader学习笔记：02-着色器基础</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+  </nav>
+
+  
+
+<nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://w.wallhaven.cc/full/ne/wallhaven-nerkew.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Unity Shader学习笔记：02-着色器基础</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>一月 15, 2021</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2021/01/15/note_shader_02.shader-fundamentals/" class="leancloud" data-flag-title="Unity Shader学习笔记：02-着色器基础"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>5225</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h1 id="物体到图像"><a href="#物体到图像" class="headerlink" title="物体到图像"></a>物体到图像</h1><p>Mesh renderer组件</p>
+<p>Unity检查对象的边界框判断物体部分或全部是否在摄像机视锥体内。</p>
+<p>Transform 组件</p>
+<p><img    class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-2/from-object-to-image/cpu-gpu.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="   ><span class="image-caption">各自负责什么</span></p>
+<h1 id="第一个shader"><a href="#第一个shader" class="headerlink" title="第一个shader"></a>第一个shader</h1><p>创建Unlit Shader，并以此创建新材质</p>
+<h2 id="Shader编译"><a href="#Shader编译" class="headerlink" title="Shader编译"></a>Shader编译</h2><p>Unity Shader编译器会将代码转换成不同的平台代码。例如D3D、OpenGL等。</p>
+<img   class="lazyload" data-original=" https://catlikecoding.com/unity/tutorials/rendering/part-2/from-object-to-image/shader-inspector.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:80%;" />
+
+<p>可以通过Compiled code查看编译平台和编译后的代码。</p>
+<h2 id="Shader结构"><a href="#Shader结构" class="headerlink" title="Shader结构:"></a>Shader结构:</h2><figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs glsl">Shader “Custom/First Shader” &#123;<br>	Properties &#123;<br>        <span class="hljs-comment">///TODO</span><br>	&#125;<br>	SubShader &#123;<br>	    Pass &#123;<br>            CGPROGRAM<br>            <span class="hljs-meta">#pragma vertex vert</span><br>            <span class="hljs-meta">#pragma fragment frag</span><br>            <span class="hljs-meta">#include “UnityCG.cginc” </span><br>            struct input &#123; <br>                <span class="hljs-comment">///TODO</span><br>            &#125;<br>            struct v2f &#123;<br>                <span class="hljs-comment">///TODO</span><br>            &#125;<br>            v2f vert (input i ) : SV_POSITION &#123;<br>                <span class="hljs-comment">///TODO</span><br>            &#125;<br>            float4 frag (v2f i ) : SV_TARGET &#123;<br>                <span class="hljs-comment">///TODO</span><br>            &#125;<br>            ENDCG<br>	    &#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="SubShade："><a href="#SubShade：" class="headerlink" title="SubShade："></a>SubShade：</h3><p>可以用于构建不同平台或实现不同的细节程度（LOD）</p>
+<h3 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h3><p>我们可以添加自己定义的变量属性并显示到Unity面板上。此时并没有声明变量，只是出现在了Unity面板上。</p>
+<ul>
+<li><p>一般的变量名以下划线开头。</p>
+</li>
+<li><p>定义Unity面板上的名字</p>
+</li>
+<li><p>定义数据类型</p>
+</li>
+<li><p>赋予初始值</p>
+</li>
+</ul>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs GLSL">Properties &#123;<br>	_Tint(“main Color”，Color) = (<span class="hljs-number">1</span>，<span class="hljs-number">1</span>，<span class="hljs-number">1</span>，<span class="hljs-number">1</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="Pass"><a href="#Pass" class="headerlink" title="Pass"></a>Pass</h3><p>我们在Pass中编写shader代码。</p>
+<p>shader 语言目前有三种，HLSL（DirectX）、GLSL（OpenGL）、Cg（NVIDIA和微软协作）</p>
+<p>Unity Shader是HLSL和Cg语言的变体。</p>
+<p>以<strong>CGPROGRAM</strong>和<strong>ENDCG</strong>包围代码</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs glsl">Pass &#123;<br>	CGPROGRAM<br>	<span class="hljs-comment">///TODO</span><br>	ENDCG<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="编译指令-pragma"><a href="#编译指令-pragma" class="headerlink" title="编译指令#pragma"></a>编译指令#pragma</h3><p>指示哪些程序使用哪些函数。</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs glsl">CGPROGRAM<br>	<span class="hljs-meta">#pragma vertex vert //告诉顶点着色器使用vert这个函数</span><br>	<span class="hljs-meta">#pragma fragment frag</span><br>ENDCG<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="引用文件-include"><a href="#引用文件-include" class="headerlink" title="引用文件#include"></a>引用文件#include</h3><p>一整套完整的shader需要大量的样板代码。定义公用变量，函数和其他内容。类似其他高级语言中的<strong>类。</strong></p>
+<p>Shader没有<strong>类</strong>，可以分成多个文件，使用**#include**加载</p>
+<p>Unity为我们准备了<strong>UnityCG.cginc</strong>。</p>
+ <figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs glsl">CGPROGRAM<br>	<span class="hljs-meta">#pragma vertex vert </span><br>	<span class="hljs-meta">#pragma fragment frag</span><br><br>	<span class="hljs-meta">#include “UnityCG.cginc”</span><br>ENDCG<br></code></pre></td></tr></table></figure>
+
+<p><img    class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-2/from-object-to-image/include-files.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="   ><span class="image-caption">层次结构</span></p>
+<h3 id="声明变量"><a href="#声明变量" class="headerlink" title="声明变量"></a>声明变量</h3><p>我们要使用Properties中自定义的变量时，我们首先需要声明它。</p>
+<p>在Pass中声明<br> <figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs glsl">Pass &#123;<br>	CGPROGRAM<br>	<span class="hljs-meta">#pragma</span><br>	<span class="hljs-meta">#include</span><br>	float4 _Tint;<br>	……<br>	ENDCG<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<h3 id="顶点着色器和片元着色器"><a href="#顶点着色器和片元着色器" class="headerlink" title="顶点着色器和片元着色器"></a>顶点着色器和片元着色器</h3><p><img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-2/coloring-pixels/interpolation.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>顶点着色器输出处理后的顶点数据</p>
+<p>之后进入光栅化阶段，进行三角形处理：以处理的三个顶点之间进行插值计算</p>
+<p>传递插值数据到片元着色器</p>
+<h4 id="数据的传递和语义"><a href="#数据的传递和语义" class="headerlink" title="数据的传递和语义"></a>数据的传递和语义</h4><p>渲染东西时，我们要输入一些数据，处理后，再输出一些数据。</p>
+<p>输入：</p>
+<p>我们将模型的顶点数据输入到vert顶点着色器中</p>
+<p>使用语义<strong>POSITION</strong>，指的就是物体在模型空间下的顶点数据</p>
+ <figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-type">void</span> vert (float4 position : POSITION) &#123;<br>    <span class="hljs-comment">///TODO</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>输出：</p>
+<p>在前面的vert顶点函数中，我们要返回处理后的顶点坐标。坐标空间是四维的齐次坐标，使用4x4矩阵。</p>
+<p>同样的frag片元函数中，我们要输出颜色值。</p>
+<p>同时使用<strong>SV_POSITION</strong>语义来规范输出。</p>
+<p><strong>SV</strong>指的是<strong>Systems Value</strong>（系统值）</p>
+<p><strong>SV_POSITION</strong>指的是用于标识经过坐标变换后的顶点坐标。</p>
+<p><strong>SV_TARGET</strong>指的是片元着色器的颜色输出语义</p>
+ <figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs glsl">float4 vert (float4 position : POSITION) : SV_POSITION &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br>float4 frag (float4 position : POSITION) : SV_TARGET &#123;<br>    <span class="hljs-keyword">return</span> position;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>这里我们尝试输出一个物体本地坐标的颜色，因为线性插值的关系，所以会有颜色的过度</p>
+<p>通常x方向为红色，y方向为绿色，z方向为蓝色。</p>
+ <figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs glsl">float4 vert(float4 position:POSITION,<span class="hljs-keyword">out</span> float3 localPotition: TEXCOORD0) : SV_POSITION<br>&#123;<br>    localPosition=position.xyz;<span class="hljs-comment">//模型空间坐标</span><br>    <span class="hljs-keyword">return</span> mul(UNITY_MATRIX_MVP, position);<span class="hljs-comment">//顶点坐标的转换</span><br><br>&#125;<br><br>float4 frag (float4 position:SV_POSITION,float3 localPosition : TEXCOORD0):SV_TARGET <br>&#123;<br>    <span class="hljs-keyword">return</span> float4 (localPosition,<span class="hljs-number">1</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>TEXCOORD0</strong>语义一般指顶点的第一套纹理坐标</p>
+<p>这里并没有使用纹理的意思，使用<strong>TEXCOORD0</strong>语义，可以就当作占个坑，用这个坑过度一下处理数据这样。</p>
+<p><img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-2/coloring-pixels/local-position.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<h4 id="颜色调整"><a href="#颜色调整" class="headerlink" title="颜色调整"></a>颜色调整</h4><p>颜色的值应该在0~1之间。</p>
+<p>而默认的球体半径是0.5的，所以在模型空间中它的值应该是-0.5~0.5</p>
+<p>这就导致0以下的数值会被舍弃掉，所以我们把他规范到0~1中</p>
+ <figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-keyword">return</span> float4 (localPosition+<span class="hljs-number">0.5</span>, <span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure>
+
+<p><img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-2/coloring-pixels/local-position-01.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<h3 id="使用结构体"><a href="#使用结构体" class="headerlink" title="使用结构体"></a>使用结构体</h3><p>为了代码的整洁，我们可以使用结构体作为输入和输出。</p>
+ <figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs glsl">Pass &#123;<br>	CGPROGRAM<br>	……<br>        <br>	struct Input &#123;<br>		float4 position : POSITION;<br>		float3 localPosition : TEXCOORD0;<br>	&#125;<br>	struct v2f &#123;<br>		float4 position : SV_POSITION;<span class="hljs-comment">//这里直接使用语义就可以省下顶点着色器的输出语义</span><br>		float3 localPosition : TEXCOORD0;<br>	&#125;<br>    <br>	……<br>	ENDCG<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>整合上面的代码</p>
+ <figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs glsl">Pass &#123;<br>	CGPROGRAM<br>	……<br><br>	v2f vert (Input i )<br>	&#123;<br> 		v2f o;<br>        i.localPosition=o.position.xyz;<span class="hljs-comment">//模型空间坐标</span><br>        mul(UNITY_MATRIX_MVP, position);<span class="hljs-comment">//顶点坐标的转换</span><br>        <span class="hljs-keyword">return</span> o;<br>	&#125;<br><br>    float4 frag (v2f i ) : SV_TARGET &#123;<br>    	<span class="hljs-keyword">return</span> float4 (i.localPosition,<span class="hljs-number">1</span>);<br><br>	&#125;<br>	ENDCG<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="贴图"><a href="#贴图" class="headerlink" title="贴图"></a>贴图</h1><p>贴图采用UV二维坐标</p>
+<p>左下角（0，0）右上角（1，1）</p>
+<p>OpenGL由下到上 <strong>|</strong> D3D由上到下</p>
+<img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-2/texturing/uv-rectangle.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:80%;" />
+
+
+
+<h3 id="添加贴图"><a href="#添加贴图" class="headerlink" title="添加贴图"></a>添加贴图</h3><p>添加Properties</p>
+ <figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs glsl">Properties &#123;<br>	_MainTex (&quot;Texture&quot;, 2D) = &quot;white&quot; &#123;&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>声明变量</p>
+ <figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs glsl">float4 _Tint;<br><span class="hljs-type">sampler2D</span> _MainTex;<br>float4 _MainTex_ST;<span class="hljs-comment">//用于Tilling And Offset</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>数据输入和输出的结构体</p>
+ <figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs glsl">struct input &#123;<br>    float4 position : POSITION;<br>    float2 uv : TEXCOORD0;<br>&#125;<br>struct v2f &#123;<br>    float4 position : SV_POSITION;<br>    float2 uv : TEXCOORD0;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>在vert函数中我们直接返回uv值</p>
+ <figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs glsl">v2f vert(input i )&#123;<br>    ……<br>    mul(UNITY_MATRIX_MVP, position);<br>    o.uv=i.uv;<br>    ……<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>然后在frag函数中用<strong>tex2D</strong>进行采样</p>
+ <figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs glsl">float4 frag (v2f i ) : SV_TARGET &#123;<br>    <span class="hljs-keyword">return</span> tex2D(_MainTex, i.uv);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>发生纹理变形是因为插值在三角形之间是线性的。Unity球体在极点附近只有几个三角形，其中UV坐标变形最大。因此，UV坐标在各个顶点之间非线性地变化，但是在顶点之间，它们的变化是线性的。所以，纹理中的直线突然在三角形边界处改变方向。</p>
+<img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-2/texturing/textured-sphere-above.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:80%;" />
+
+
+
+<h4 id="平铺和偏移"><a href="#平铺和偏移" class="headerlink" title="平铺和偏移"></a>平铺和偏移</h4><p>就是使用之前添加的<strong>_MainTex_ST</strong></p>
+ <figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs glsl">i.uv = v.uv * _MainTex_ST.xy + _MainTex_ST.zw;<br></code></pre></td></tr></table></figure>
+
+<p>通常我们使用在<strong>UnityCG.cginc</strong>中定义好的函数进行这个操作</p>
+ <figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs glsl">i.uv = TRANSFORM_TEX(v.uv, _MainTex)；<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="Unity中的图片设置"><a href="#Unity中的图片设置" class="headerlink" title="Unity中的图片设置"></a>Unity中的图片设置</h1><ul>
+<li>Wrap Mode：</li>
+</ul>
+<p><strong>Clamp</strong>：图片被限制在0~1之间</p>
+<p><strong>Repeat</strong>：在超过1之后的地方会进行repeat</p>
+<p>言简意赅，图片在Tilling改变后是否会被拉伸。</p>
+<p>在0-1范围内，两者在图像边缘的处理上会存在差别</p>
+<p>Repeat的时候，如果边缘两处颜色不相似，边缘处会渗出一点点另一边的颜色。</p>
+<p>Clamp的时候边缘并不明显。</p>
+<ul>
+<li>Filter Mode：</li>
+</ul>
+<p><img    class="lazyload" data-original="https://cdn.jsdelivr.net/gh/PPuyan/blogimg/imgs/clip_image018.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="   ><span class="image-caption">img</span></p>
+<p>主要解决纹素投影到像素不完全匹配的问题。</p>
+<p>因为采样的问题，单个像素出现的纹素过多的时候，两个像素间采样的值将会超过一个纹素样本</p>
+<p>Point（不过滤）采样的时候取最近的纹素，会产生块状外观</p>
+<p>默认为Bilinear（双线性）在两个纹素间的某个位置进行采样，将这两个纹素进行插值。</p>
+<h3 id="启用Mipmap，默认是启用的"><a href="#启用Mipmap，默认是启用的" class="headerlink" title="启用Mipmap，默认是启用的"></a>启用Mipmap，默认是启用的</h3><p>使用不同层级的贴图，例如原贴图512x512那么其mipmap就是256x256,128x128等</p>
+<p>使用原理就是，当单个像素内，纹素密度过高的时候，使用较小的mipmap，来降低纹素密度。</p>
+<p><img    class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-2/texture-settings/bilinear-mips.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="   ><span class="image-caption">有mipmap</span></p>
+<p><img    class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-2/texture-settings/no-mips.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="   ><span class="image-caption">无mipmap</span></p>
+<h3 id="各向异性过滤"><a href="#各向异性过滤" class="headerlink" title="各向异性过滤"></a>各向异性过滤</h3><p>当角度过于平的时候，会出现远处很模糊，这是因为远处纹素密度过大，使用了较低的mipmap所以会很模糊。</p>
+<p>在两个维度上缩放不同数量，所以是各向异性。例如除了256x256的mipmap还有256x128、256x64等的mipmap。</p>
+<p><img    class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-2/texture-settings/without-aniso.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="   ><span class="image-caption">无各向异性滤波</span></p>
+<p><img    class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-2/texture-settings/with-aniso.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="   ><span class="image-caption">有各向异性滤波</span></p>
+<p>这些额外的Mipmap不会像常规的Mipmap预先生成，采样时进行额外的模拟。</p>
+<p>不需要额外的空间，但采样成本变高。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://catlikecoding.com/unity/tutorials/rendering/part-2/">像猫一样编程~02</a></p>
+<!-- more -->
+
+<h1 id="Toc"><a href="#Toc" class="headerlink" title="Toc"></a>Toc</h1><a href="/2021/01/15/note_shader_01.render-pipline/" title="Unity Shader学习笔记：01-渲染管线">Unity Shader学习笔记：01-渲染管线</a>
+
+<p><u>Unity Shader学习笔记：02-着色器基础</u></p>
+<hr>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>ppuyan</li>
+    <li><strong>本文链接：</strong><a href="https://ppuyan.github.io/2021/01/15/note_shader_02.shader-fundamentals/index.html" title="https:&#x2F;&#x2F;ppuyan.github.io&#x2F;2021&#x2F;01&#x2F;15&#x2F;note_shader_02.shader-fundamentals&#x2F;index.html">https:&#x2F;&#x2F;ppuyan.github.io&#x2F;2021&#x2F;01&#x2F;15&#x2F;note_shader_02.shader-fundamentals&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/shader/" rel="tag">shader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unity/" rel="tag">unity</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a></a>
+    <a href="/2021/01/15/note_shader_01.render-pipline/">Unity Shader学习笔记：01-渲染管线<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "NSQQTbdDfP8Ok2pLzxEt9Boz-gzGzoHsz",
+        app_key: "XqiS4lGV1vOhcFqPjVIoCHNg",
+        placeholder: "┬─┬ ノ( ‘ – ‘ノ)",
+        avatar: "robohash",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( false ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%A9%E4%BD%93%E5%88%B0%E5%9B%BE%E5%83%8F"><span class="toc-text">物体到图像</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AAshader"><span class="toc-text">第一个shader</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Shader%E7%BC%96%E8%AF%91"><span class="toc-text">Shader编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shader%E7%BB%93%E6%9E%84"><span class="toc-text">Shader结构:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SubShade%EF%BC%9A"><span class="toc-text">SubShade：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Properties"><span class="toc-text">Properties</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pass"><span class="toc-text">Pass</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E6%8C%87%E4%BB%A4-pragma"><span class="toc-text">编译指令#pragma</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E6%96%87%E4%BB%B6-include"><span class="toc-text">引用文件#include</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E%E5%8F%98%E9%87%8F"><span class="toc-text">声明变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B6%E7%82%B9%E7%9D%80%E8%89%B2%E5%99%A8%E5%92%8C%E7%89%87%E5%85%83%E7%9D%80%E8%89%B2%E5%99%A8"><span class="toc-text">顶点着色器和片元着色器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%9A%84%E4%BC%A0%E9%80%92%E5%92%8C%E8%AF%AD%E4%B9%89"><span class="toc-text">数据的传递和语义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A2%9C%E8%89%B2%E8%B0%83%E6%95%B4"><span class="toc-text">颜色调整</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">使用结构体</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B4%E5%9B%BE"><span class="toc-text">贴图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E8%B4%B4%E5%9B%BE"><span class="toc-text">添加贴图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%B3%E9%93%BA%E5%92%8C%E5%81%8F%E7%A7%BB"><span class="toc-text">平铺和偏移</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Unity%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E8%AE%BE%E7%BD%AE"><span class="toc-text">Unity中的图片设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E7%94%A8Mipmap%EF%BC%8C%E9%BB%98%E8%AE%A4%E6%98%AF%E5%90%AF%E7%94%A8%E7%9A%84"><span class="toc-text">启用Mipmap，默认是启用的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E5%90%91%E5%BC%82%E6%80%A7%E8%BF%87%E6%BB%A4"><span class="toc-text">各向异性过滤</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Toc"><span class="toc-text">Toc</span></a></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: 'NSQQTbdDfP8Ok2pLzxEt9Boz-gzGzoHsz',
+      appKey: 'XqiS4lGV1vOhcFqPjVIoCHNg',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://ppuyan.github.io';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+
+  });
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
