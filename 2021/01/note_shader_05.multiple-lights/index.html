@@ -1,0 +1,620 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Unity Shader学习笔记：05-多光源 - PPuyan</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  
+  <meta name="description" content="自定义include文件；添加多个光源；
+
+
+
+
+自定...">
+  <meta name="author" content="ppuyan">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-152x152.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/vs.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/zenburn.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: '',
+        wechat: ''
+      },
+      galleries: {
+        enable: false
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: 'https://images.weserv.nl/?url=https://i0.hdslb.com/bfs/album/eff30ad0e2ebca04244519fdd309d570d0755f75.jpg',
+          api: ''
+        },
+        motto: {
+          default: '',
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: false,
+        type: 'url',
+        image: '',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        model: 'normal'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+    </div>
+    <div class="center">Unity Shader学习笔记：05-多光源</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+  </nav>
+
+  
+
+<nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://w.wallhaven.cc/full/ne/wallhaven-nerkew.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Unity Shader学习笔记：05-多光源</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>一月 16, 2021</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2021/01/note_shader_05.multiple-lights/" class="leancloud" data-flag-title="Unity Shader学习笔记：05-多光源"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>8159</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h1 id="自定义的-cginc文件"><a href="#自定义的-cginc文件" class="headerlink" title="自定义的.cginc文件"></a>自定义的.cginc文件</h1><p>要渲染多个光源，我们必须使用多个pass来渲染，但会有很多重复的代码，我们将重复的代码整理为一个.cginc文件，方便引入复用。</p>
+<p>Unity里面没有创建cginc文件的选项，我们进入项目文件夹手动创建<strong>My Lighting.cginc</strong>文件</p>
+<p>然后把上文中的pass里从#pragma到ENDCG里面的代码复制到cginc文件里。</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs glsl">Pass&#123;<br>    CGPROGRAM<br>    <span class="hljs-meta">#pragma</span><br>    ……<br>   <span class="hljs-comment">//复制这里面的代码到My Lighting.cginc文件里//</span><br>  	……<br>    ENDCG<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>现在我们就可以使用**#include**指令来包含这个cginc文件，复用里面的代码。</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs glsl">CGPROGRAM<br><br><span class="hljs-meta">#pragma target 3.0</span><br><span class="hljs-meta">#pragma vertex vert</span><br><span class="hljs-meta">#pragma fragment frag</span><br><span class="hljs-meta">#include &quot;My Lighting.cginc&quot;</span><br><br>ENDCG<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="防止重复引用"><a href="#防止重复引用" class="headerlink" title="防止重复引用"></a>防止重复引用</h2><p>因为包含的文件里面还可以包含其他文件，所以会导致重复引用。这会引起shader在编译时的错误</p>
+<p>使用定义来解决，该定义是与这个文件相对应的唯一标识符。这是一种预处理程序，检查是否已经定义了该文件。</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-meta">#if !defined(MY_LIGHTING_INCLUDED) //也可以使用简写#ifndef()</span><br><br><span class="hljs-meta">#define MY_LIGHTING_INCLUDED</span><br><br><span class="hljs-meta">#include &quot;UnityPBSLighting.cginc&quot;</span><br><br>……<br><br><span class="hljs-meta">#endif</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="添加第二个光源"><a href="#添加第二个光源" class="headerlink" title="添加第二个光源"></a>添加第二个光源</h1><p>在单个pass下使用两个directional light的时候，只有一个起作用。</p>
+<p>添加第二个pass并使用<strong>ForwardAdd</strong> 的光照模式</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs glsl">SubShader &#123;<br>    <span class="hljs-comment">//第一个pass</span><br>  	Pass &#123;<br>       Tags &#123;<br>           &quot;LightMode&quot; = &quot;ForwardBase&quot;<br>       &#125;<br>       CGPROGRAM<br><br>       <span class="hljs-meta">#pragma target 3.0</span><br>       <span class="hljs-meta">#pragma vertex vert</span><br>       <span class="hljs-meta">#pragma fragment frag</span><br><br>       <span class="hljs-meta">#include &quot;My Lighting.cginc&quot;</span><br>       ENDCG<br>   &#125;<br>	<span class="hljs-comment">//第二个pass</span><br>    Pass &#123;<br>       Tags &#123;<br>           &quot;LightMode&quot; = &quot;ForwardAdd&quot;<br>       &#125;<br>       CGPROGRAM<br>       <br>       <span class="hljs-meta">#pragma target 3.0</span><br>       <span class="hljs-meta">#pragma vertex vert</span><br>       <span class="hljs-meta">#pragma fragment frag</span><br>       <br>       <span class="hljs-meta">#include &quot;My Lighting.cginc&quot;</span><br>       ENDCG<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>但是第二个pass会覆盖第一个pass的效果，所以我们要指定第二个pass的混合模式</p>
+<p>在CGPRAGRAM上面添加</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs glsl">Tags &#123;<br>    &quot;LightMode&quot; = &quot;ForwardAdd&quot;<br>&#125;<br>Blend One One<br>CGPROGRAM<br></code></pre></td></tr></table></figure>
+
+
+
+<p>在第一次渲染物体的时候，会记录深度缓冲值，用来判断该像素前面是否又被遮挡。在第二个pass里面，同样会重复此操作，因为是针对同一个像素的，所以z-buff是一样的，所以在第二个pass里面要关闭深度缓冲。</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs glsl">Blend One One<br>ZWrite Off<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="查看Draw-Call"><a href="#查看Draw-Call" class="headerlink" title="查看Draw Call"></a>查看Draw Call</h2><p>在Game窗口右上角的*<strong>Stats*</strong>中可以查看<em>Batches</em>和<em>Saved by batching</em>这两个就是查看Draw Call的数量</p>
+<img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-5/the-second-light/batches-one-light-shadows.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:67%;" />
+
+
+
+<p>Unity的动态批处理仅适用于最多受单个directional light影响的物体。</p>
+<h2 id="Frame-Debugger帧调式器"><a href="#Frame-Debugger帧调式器" class="headerlink" title="Frame Debugger帧调式器"></a>Frame Debugger帧调式器</h2><p><strong>Window <svg xmlns:xlink="http://www.w3.org/1999/xlink" width="2.324ex" height="1.843ex" style="vertical-align: -0.338ex;" viewBox="0 -647.8 1000.5 793.3" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-1-Title">
+<title id="MathJax-SVG-1-Title">\rightarrow</title>
+<defs aria-hidden="true">
+<path stroke-width="1" id="E1-MJMAIN-2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#E1-MJMAIN-2192" x="0" y="0"></use>
+</g>
+</svg> Frame Debugger</strong>中开启</p>
+<p>可以看到Unity是如何一帧一帧的渲染的</p>
+<img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-5/the-second-light/frame-debugger.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:67%;" />
+
+<p>首先绘制靠近摄像机的不透明物体，从前往后渲染。</p>
+<h1 id="Point-Light点光源"><a href="#Point-Light点光源" class="headerlink" title="Point Light点光源"></a>Point Light点光源</h1><p>我们先整理一下<strong>UnityLight</strong>这个结构体，把他处理成一个函数</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs glsl">UnityLight CreateLight (v2f i) &#123;<br>    UnityLight light;<br>    light.dir = _WorldSpaceLightPos0.xyz;<br>    light.color = _LightColor0.rgb;<br>    light.ndotl = DotClamped(i.normal, light.dir);<br>    <span class="hljs-keyword">return</span> light;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="灯光方向"><a href="#灯光方向" class="headerlink" title="灯光方向"></a>灯光方向</h2><p><strong>_WorldSpaceLightPos0</strong>这个变量保存的是灯光的位置。在directional light状态下，保存的其实是directional light的方向。因为平行光对于每一个像素的灯光方向都是一样的，但是点光源不同。我们要重新计算点光源打到像素的方向。通过光源位置减去当前坐标得出。</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs glsl">light.dir = <span class="hljs-built_in">normalize</span>(_WorldSpaceLightPos0.xyz - i.worldPos);<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="光衰弱"><a href="#光衰弱" class="headerlink" title="光衰弱"></a>光衰弱</h2><p>点光有明确的位置，离光源越远应该越暗。</p>
+<p>光子从光源向外迸发，光子数量不变，但是所处的球面积增大，单位光量减少，光密度降低</p>
+<p><img    class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-5/point-lights/attenuation.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="   ><span class="image-caption">球形衰减</span></p>
+<p>计算光衰因子。球面积<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="3.542ex" height="2.676ex" style="vertical-align: -0.338ex;" viewBox="0 -1006.6 1524.9 1152.1" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-1-Title">
+<title id="MathJax-SVG-1-Title">4π^2</title>
+<defs aria-hidden="true">
+<path stroke-width="1" id="E1-MJMAIN-34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z"></path>
+<path stroke-width="1" id="E1-MJMATHI-3C0" d="M132 -11Q98 -11 98 22V33L111 61Q186 219 220 334L228 358H196Q158 358 142 355T103 336Q92 329 81 318T62 297T53 285Q51 284 38 284Q19 284 19 294Q19 300 38 329T93 391T164 429Q171 431 389 431Q549 431 553 430Q573 423 573 402Q573 371 541 360Q535 358 472 358H408L405 341Q393 269 393 222Q393 170 402 129T421 65T431 37Q431 20 417 5T381 -10Q370 -10 363 -7T347 17T331 77Q330 86 330 121Q330 170 339 226T357 318T367 358H269L268 354Q268 351 249 275T206 114T175 17Q164 -11 132 -11Z"></path>
+<path stroke-width="1" id="E1-MJMAIN-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#E1-MJMAIN-34" x="0" y="0"></use>
+<g transform="translate(500,0)">
+ <use xlink:href="#E1-MJMATHI-3C0" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMAIN-32" x="806" y="583"></use>
+</g>
+</g>
+</svg>，那么影响得就是半径r</p>
+<p>我们取光衰因子<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="3.108ex" height="5.509ex" style="vertical-align: -2.171ex;" viewBox="0 -1437.2 1338.4 2372" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-1-Title">
+<title id="MathJax-SVG-1-Title">\frac{1}{d^2}</title>
+<defs aria-hidden="true">
+<path stroke-width="1" id="E1-MJMAIN-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path>
+<path stroke-width="1" id="E1-MJMATHI-64" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path>
+<path stroke-width="1" id="E1-MJMAIN-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+<g transform="translate(120,0)">
+<rect stroke="none" width="1098" height="60" x="0" y="220"></rect>
+ <use xlink:href="#E1-MJMAIN-31" x="298" y="676"></use>
+<g transform="translate(60,-780)">
+ <use xlink:href="#E1-MJMATHI-64" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMAIN-32" x="741" y="408"></use>
+</g>
+</g>
+</g>
+</svg></p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs glsl">UnityLight CreateLight (v2f i) &#123;<br>    UnityLight light;<br>    light.dir = <span class="hljs-built_in">normalize</span>(_WorldSpaceLightPos0.xyz - i.worldPos)<br>    float3 lightVec = _WorldSpaceLightPos0.xyz - i.worldPos;<br>    <span class="hljs-type">float</span> attenuation = <span class="hljs-number">1</span> / (<span class="hljs-built_in">dot</span>(lightVec, lightVec));<br>    light.color = _LightColor0.rgb * attenuation;<br>    light.ndotl = DotClamped(i.normal, light.dir);<br>    <span class="hljs-keyword">return</span> light;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>但是这会导致当光源无限近时，因子会无限大，导致光过曝。</p>
+<p>所以我们可以改为</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-type">float</span> attenuation = <span class="hljs-number">1</span> / (<span class="hljs-number">1</span> + <span class="hljs-built_in">dot</span>(lightVec, lightVec));<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="光影响范围"><a href="#光影响范围" class="headerlink" title="光影响范围"></a>光影响范围</h2><p>现实中，光子直到撞到物体都会运动，光范围影响无限。</p>
+<p>为了节省不必要的渲染，Unity规范了光影响范围，这导致了在这个范围边缘中，光会突然出现和消失。</p>
+<p>Unity内置<strong>UNITY_LIGHT_ATTENUATION</strong>宏，解决了在这个范围边缘，光会突然消失或者出现的问题。这个宏中定义了attenuation这个变量，所以不用重复定义。第二个参数与阴影有关。</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs glsl">UnityLight CreateLight (v2f i) &#123;<br>    UnityLight light;<br>    light.dir = <span class="hljs-built_in">normalize</span>(_WorldSpaceLightPos0.xyz - i.worldPos)<br>    <span class="hljs-comment">//float3 lightVec = _WorldSpaceLightPos0.xyz - i.worldPos;</span><br>    <span class="hljs-comment">//float attenuation = 1 / (dot(lightVec, lightVec));</span><br>    UNITY_LIGHT_ATTENUATION(attenuation, <span class="hljs-number">0</span>, i.worldPos);<br>    light.color = _LightColor0.rgb * attenuation;<br>    light.ndotl = DotClamped(i.normal, light.dir);<br>    <span class="hljs-keyword">return</span> light;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>这个宏会有多个版本，所以我们要为它定义使用POINT这个版本。</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-meta">#define POINT</span><br><span class="hljs-meta">#include “My Lighting.cginc”</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="灯的混合"><a href="#灯的混合" class="headerlink" title="灯的混合"></a>灯的混合</h1><h2 id="着色器变体"><a href="#着色器变体" class="headerlink" title="着色器变体"></a>着色器变体</h2><p>在Unity选中Shader后，在面板中show可以查看着色器变体。</p>
+<img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-5/mixing-lights/showing-variants.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:67%;" />
+
+
+
+<p>因为平行光和点光计算灯光方向的方式不同，并且要分别渲染，使用着色器变体来渲染不同光。<strong>当没有定义关键字的时候，默认会使用第一个shader变体。</strong></p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-meta">#pragma multi_compile DIRECTIONAL POINT</span><br><span class="hljs-meta">#pragma vertex vert</span><br><span class="hljs-meta">#pragma fragment frag</span><br><br><span class="hljs-comment">//#define POINT</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>并且在<strong>UnityLight</strong>结构体函数中定义两种不同灯光计算光方向的方式</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs glsl">UnityLight light;<br><span class="hljs-meta">#if defined(POINT)</span><br>	light.dir = <span class="hljs-built_in">normalize</span>(_WorldSpaceLightPos0.xyz - i.worldPos);<br><span class="hljs-meta">#else</span><br>	light.dir = _WorldSpaceLightPos0.xyz;<br><span class="hljs-meta">#endif</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="Spotlights聚光灯"><a href="#Spotlights聚光灯" class="headerlink" title="Spotlights聚光灯"></a>Spotlights聚光灯</h1><p>同样的添加<strong>SPOT</strong>变体</p>
+<p>这些关键字都是Unity定义好的，不能随意更改。</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-meta">#pragma multi_compile DIRECTIONAL POINT SPOT</span><br><span class="hljs-meta">#if defined(POINT) || defined(SPOT)</span><br>    light.dir = <span class="hljs-built_in">normalize</span>(_WorldSpaceLightPos0.xyz - i.worldPos);<br><span class="hljs-meta">#else</span><br>    light.dir = _WorldSpaceLightPos0.xyz;<br><span class="hljs-meta">#endif</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="灯光遮罩Cookies"><a href="#灯光遮罩Cookies" class="headerlink" title="灯光遮罩Cookies"></a>灯光遮罩Cookies</h1><p>使用灯光遮罩改变灯光效果</p>
+<p><img    class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-5/spotlights/spotlight-cookie.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="    style="zoom: 67%;" /><span class="image-caption">聚光灯cookie</span><img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-5/spotlights/spotlight-with-cookie.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:67%;" /></p>
+<p>平行光遮罩要保证是四方贴图，即四个方向都无缝平铺</p>
+<p>带cookie的平行光需要转换到light space，Unity会将带cookie的平行光和不带cookie的平行光视为不同类型光源</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-meta">#pragma multi_compile DIRECTIONAL **DIRECTIONAL_COOKIE** POINT SPOT</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p><img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-5/more-cookies/directional-cookie.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:67%;" /><img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-5/more-cookies/directional-with-cookie.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:67%;" /></p>
+<p>点光源的遮罩</p>
+<p>因为点光源是遮罩需要包裹在球体上，所以点光源的cookie必须是cube map</p>
+<p>也需要加入<strong>POINT_COOOKIE</strong>关键字</p>
+<p>Unity提供了一个包含所有光源的关键字**<em>fwdadd**</em></p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-meta">#pragma multi_compile_fwdadd</span><br></code></pre></td></tr></table></figure>
+
+<p>记得添加定义</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-meta">#if defined(POINT) || defined(POINT_COOKIE) || defined(SPOT)	</span><br>	light.dir = <span class="hljs-built_in">normalize</span>(_WorldSpaceLightPos0.xyz - i.worldPos);<br><span class="hljs-meta">#else</span><br>	light.dir = _WorldSpaceLightPos0.xyz;<br><span class="hljs-meta">#endif</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="Vertex-Light顶点光照"><a href="#Vertex-Light顶点光照" class="headerlink" title="Vertex Light顶点光照"></a>Vertex Light顶点光照</h1><p>在base pass上可以渲染主灯，每加一盏灯都会多一个pass，这会增加额外的draw call。</p>
+<p>Unity根据灯光相对强度和距离，对灯光从高到低进行排序</p>
+<p>可以设定多少盏灯使用像素灯</p>
+<p>仅点光可以使用vertex light代替fragment light</p>
+<p>使用另一个关键字打开顶点光</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-meta">#pragma multi_compile _ VERTEXLIGHT_ON</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>顶点颜色传入片段在v2f结构体中加入</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-meta">#if defined(VERTEXLIGHT_ON)</span><br>    float3 vertexLightColor : TEXCOORD3;<br><span class="hljs-meta">#endif</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>创建新的函数，需要v2f这个结构体传入并输出，所以是inout</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-type">void</span> ComputeVertexLightColor（<span class="hljs-keyword">inout</span> v2f i）&#123;<br>	<span class="hljs-comment">///TODO</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>UnityShaderVariables</strong>中定义了一个顶点灯光颜色数组<strong>unity_LightColor[]</strong></p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-type">void</span> ComputeVertexLightColor (<span class="hljs-keyword">inout</span> Interpolators i) &#123;<br>    <span class="hljs-meta">#if defined(VERTEXLIGHT_ON)</span><br>       i.vertexLightColor = unity_LightColor[<span class="hljs-number">0</span>].rgb;<br>    <span class="hljs-meta">#endif</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>因为之前在算间接光照的时候diffuse分量是0的，我们可以把这个顶点光颜色放进这个分量里</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs glsl">UnityIndirect CreateIndirectLight (Interpolators i) &#123;<br>    UnityIndirect indirectLight;<br>    indirectLight.diffuse = <span class="hljs-number">0</span>;<br>    indirectLight.specular = <span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-meta">#if defined(VERTEXLIGHT_ON)</span><br>       indirectLight.diffuse = i.vertexLightColor;<br>    <span class="hljs-meta">#endif</span><br>    <br>    <span class="hljs-keyword">return</span> indirectLight;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>Unity支持四盏顶点灯，顶点光的位置存储在了一组float4中，每个分量即一盏灯位置。</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-type">void</span> ComputeVertexLightColor (<span class="hljs-keyword">inout</span> Interpolators i) &#123;<br>    <span class="hljs-meta">#if defined(VERTEXLIGHT_ON)</span><br>    <br>    	float3 lightPos = float3(unity_4LightPosX0.x,unity_4LightPosY0.x,unity_4LightPosZ0.x);<br>		<br>    i.vertexLightColor = unity_LightColor[<span class="hljs-number">0</span>].rgb;<br>    <span class="hljs-meta">#endif</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>因为UNITY_LIGHT_ATTENUATION这个宏并没有处理顶点光的衰弱，所以我们要自己算。</p>
+<p>顶点着色后需要经过插值才会传到片段着色器中，这会影响着色效果，Unity提供了一个变量使衰弱从顶点着色器传出后得到比较好的效果。</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-type">void</span> ComputeVertexLightColor (<span class="hljs-keyword">inout</span> Interpolators i) &#123;<br>    <span class="hljs-meta">#if defined(VERTEXLIGHT_ON)</span><br>        float3 lightPos = float3(unity_4LightPosX0.x, unity_4LightPosY0.x, unity_4LightPosZ0.x);<br>        float3 lightVec = lightPos - i.worldPos;<br>        float3 lightDir = <span class="hljs-built_in">normalize</span>(lightVec);<br>        <span class="hljs-type">float</span> ndotl = DotClamped(i.normal, lightDir);<br>        <span class="hljs-type">float</span> attenuation = <span class="hljs-number">1</span> / (<span class="hljs-number">1</span> + <span class="hljs-built_in">dot</span>(lightVec, lightVec)) \* unity_4LightAtten0.x);<br>        i.vertexLightColor = unity_LightColor[<span class="hljs-number">0</span>].rgb \* ndotl \* attenuation;<br>    <span class="hljs-meta">#endif</span><br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>因为可以提供四盏顶点灯，Unity提供了更便捷的函数<strong>Shade4PointLights</strong></p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-type">void</span> ComputeVertexLightColor (<span class="hljs-keyword">inout</span> Interpolators i) &#123;<br>    <span class="hljs-meta">#if defined(VERTEXLIGHT_ON)</span><br>    	i.vertexLightColor = Shade4PointLights(<br>        unity_4LightPosX0, unity_4LightPosY0, unity_4LightPosZ0,<br>        unity_LightColor[<span class="hljs-number">0</span>].rgb, unity_LightColor[<span class="hljs-number">1</span>].rgb,<br>        unity_LightColor[<span class="hljs-number">2</span>].rgb, unity_LightColor[<span class="hljs-number">3</span>].rgb,<br>        unity_4LightAtten0, i.worldPos, i.normal<br>       	);<br>     <span class="hljs-meta">#endif</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="Unity中的球谐光照SH"><a href="#Unity中的球谐光照SH" class="headerlink" title="Unity中的球谐光照SH"></a>Unity中的球谐光照SH</h1><p>在实时中，每一个点都计算各个方向传入的光，如环境光是很难的</p>
+<p>利用球谐函数模拟低频的环境光，只需要用几阶的球谐函数就能较好的还原环境光。</p>
+<p>球谐函数和球谐光照十分复杂，这里只是在Unity中如何使用内置提供的<strong>SH</strong></p>
+<p>Unity提供了计算SH光照的函数<strong>ShadeSH9</strong></p>
+<p>把他加入到间接光结构体函数中，并用max让它不会得出负数</p>
+<p>SH应该在base pass中使用，所以我们不能让它在add pass中用到。</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs glsl">UnityIndirect CreateIndirectLight (Interpolators i) &#123;<br>    UnityIndirect indirectLight;<br>    indirectLight.diffuse = <span class="hljs-number">0</span>;<br>    indirectLight.specular = <span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-meta">#if defined(VERTEXLIGHT_ON)</span><br>       indirectLight.diffuse = i.vertexLightColor;<br>    <span class="hljs-meta">#endif</span><br>    <br>    <span class="hljs-meta">#if defined(FORWARD_BASE_PASS)</span><br>        indirectLight.diffuse += <span class="hljs-built_in">max</span>(<span class="hljs-number">0</span>, ShadeSH9(float4(i.normal, <span class="hljs-number">1</span>)));<br>    <span class="hljs-meta">#endif</span><br>    <span class="hljs-keyword">return</span> indirectLight;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>在base pass下添加定义</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-meta">#define FORWARD_BASE_PASS</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://catlikecoding.com/unity/tutorials/rendering/part-5/">像猫一样编程~05</a></p>
+<!-- more -->
+
+<h1 id="Toc"><a href="#Toc" class="headerlink" title="Toc"></a>Toc</h1><p><a href="/2021/01/note_shader_01.render-pipline/" title="Unity Shader学习笔记：01-渲染管线">Unity Shader学习笔记：01-渲染管线</a></p>
+
+<p><a href="/2021/01/note_shader_02.shader-fundamentals/" title="Unity Shader学习笔记：02-着色器基础">Unity Shader学习笔记：02-着色器基础</a> </p>
+
+<p><a href="/2021/01/note_shader_03.mix-textures/" title="Unity Shader学习笔记：03-纹理混合">Unity Shader学习笔记：03-纹理混合</a> </p>
+
+<p><a href="/2021/01/note_shader_04.illumination-model/" title="Unity Shader学习笔记：04-光照模型">Unity Shader学习笔记：04-光照模型</a> </p>
+
+<p><u><strong>Unity Shader学习笔记：05-多光源</strong></u></p>
+<hr>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>ppuyan</li>
+    <li><strong>本文链接：</strong><a href="https://ppuyan.github.io/2021/01/note_shader_05.multiple-lights/index.html" title="https:&#x2F;&#x2F;ppuyan.github.io&#x2F;2021&#x2F;01&#x2F;note_shader_05.multiple-lights&#x2F;index.html">https:&#x2F;&#x2F;ppuyan.github.io&#x2F;2021&#x2F;01&#x2F;note_shader_05.multiple-lights&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/shader/" rel="tag">shader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unity/" rel="tag">unity</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a></a>
+    <a href="/2021/01/note_shader_04.illumination-model/">Unity Shader学习笔记：04-光照模型<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "NSQQTbdDfP8Ok2pLzxEt9Boz-gzGzoHsz",
+        app_key: "XqiS4lGV1vOhcFqPjVIoCHNg",
+        placeholder: "┬─┬ ノ( ‘ – ‘ノ)",
+        avatar: "robohash",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( false ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84-cginc%E6%96%87%E4%BB%B6"><span class="toc-text">自定义的.cginc文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E6%AD%A2%E9%87%8D%E5%A4%8D%E5%BC%95%E7%94%A8"><span class="toc-text">防止重复引用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E7%AC%AC%E4%BA%8C%E4%B8%AA%E5%85%89%E6%BA%90"><span class="toc-text">添加第二个光源</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8BDraw-Call"><span class="toc-text">查看Draw Call</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Frame-Debugger%E5%B8%A7%E8%B0%83%E5%BC%8F%E5%99%A8"><span class="toc-text">Frame Debugger帧调式器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Point-Light%E7%82%B9%E5%85%89%E6%BA%90"><span class="toc-text">Point Light点光源</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%81%AF%E5%85%89%E6%96%B9%E5%90%91"><span class="toc-text">灯光方向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%89%E8%A1%B0%E5%BC%B1"><span class="toc-text">光衰弱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%89%E5%BD%B1%E5%93%8D%E8%8C%83%E5%9B%B4"><span class="toc-text">光影响范围</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%81%AF%E7%9A%84%E6%B7%B7%E5%90%88"><span class="toc-text">灯的混合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9D%80%E8%89%B2%E5%99%A8%E5%8F%98%E4%BD%93"><span class="toc-text">着色器变体</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Spotlights%E8%81%9A%E5%85%89%E7%81%AF"><span class="toc-text">Spotlights聚光灯</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%81%AF%E5%85%89%E9%81%AE%E7%BD%A9Cookies"><span class="toc-text">灯光遮罩Cookies</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Vertex-Light%E9%A1%B6%E7%82%B9%E5%85%89%E7%85%A7"><span class="toc-text">Vertex Light顶点光照</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Unity%E4%B8%AD%E7%9A%84%E7%90%83%E8%B0%90%E5%85%89%E7%85%A7SH"><span class="toc-text">Unity中的球谐光照SH</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Toc"><span class="toc-text">Toc</span></a></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: 'NSQQTbdDfP8Ok2pLzxEt9Boz-gzGzoHsz',
+      appKey: 'XqiS4lGV1vOhcFqPjVIoCHNg',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://ppuyan.github.io';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+
+  });
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
