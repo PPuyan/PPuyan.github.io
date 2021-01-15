@@ -183,7 +183,7 @@
           <i class="iconfont iconeye"></i><span id="/2021/01/note_shader_04.illumination-model/" class="leancloud" data-flag-title="Unity Shader学习笔记：04-光照模型"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>9502</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>9461</span>
     </div>
   </div>
 </section>
@@ -924,8 +924,9 @@
 
 
 <h2 id="Blinn-Phong"><a href="#Blinn-Phong" class="headerlink" title="Blinn-Phong"></a>Blinn-Phong</h2><p>上面是基于Blinn的高光经验模型，</p>
-<p>但最常用的高光经验模型是Blinn-Phong</p>
-<p>使用光线方向和观察者方向之间的**==半角向量==**来确定高光范围。</p>
+<p><a href="/2021/01/note_shader_04.illumination-model/" title="Unity Shader学习笔记：04-光照模型">Unity Shader学习笔记：04-光照模型</a></p>
+
+<p>使用光线方向和观察者方向之间的<strong>半角向量</strong>来确定高光范围。</p>
 <img   class="lazyload" data-original="https://catlikecoding.com/unity/tutorials/rendering/part-4/specular-shading/halfway-vector.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:80%;" />
 
 <figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-comment">//float3 reflectionDir = reflect(-lightDir, i.normal);</span><br>float3 halfVector = <span class="hljs-built_in">normalize</span>(lightDir + viewDir);<br><span class="hljs-keyword">return</span> <span class="hljs-built_in">pow</span>(DotClamped(halfVector, i.normal),_Smoothness * <span class="hljs-number">100</span>);<br></code></pre></td></tr></table></figure>
@@ -996,7 +997,7 @@
 
 
 <p>Unity为不同平台定制了不同的BRDF函数，3.0以上会使用最佳的函数。</p>
-<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs glsl">CGPROGRAM<br><span class="hljs-meta">#pragma target 3.0//指定这个shader级别</span><br><span class="hljs-meta">#pragma vertex vert</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs glsl">CGPROGRAM<br><span class="hljs-meta">#pragma target 3.0 //指定这个shader级别</span><br><span class="hljs-meta">#pragma vertex vert</span><br></code></pre></td></tr></table></figure>
 
 
 
@@ -1006,13 +1007,13 @@
 
 
 <ul>
-<li><p>前两个是材质的==<strong>漫反射</strong>==和==<strong>高光颜色</strong>==</p>
+<li><p>前两个是材质的<strong>漫反射</strong>和<strong>高光颜色</strong></p>
 </li>
-<li><p>之后是==<strong>反射率</strong>==和==<strong>粗糙度</strong>==。这两个值必须是一减的形式。Smoothness=1-Roughness.</p>
+<li><p>之后是<strong>反射率</strong>和<strong>粗糙度</strong>；这两个值必须是一减的形式。Smoothness=1-Roughness.</p>
 </li>
-<li><p>然后是==<strong>法线</strong>==，==<strong>观察方向</strong>==。</p>
+<li><p>然后是<strong>法线</strong>，<strong>观察方向</strong></p>
 </li>
-<li><p>最后是==<strong>直接光</strong>==和==<strong>间接光</strong>==的两个结构体</p>
+<li><p>最后是<strong>直接光</strong>和<strong>间接光</strong>的两个结构体</p>
 </li>
 </ul>
 <figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-keyword">return</span> UNITY_BRDF_PBS(albedo, specularTint, oneMinusReflectivity, _Smoothness, i.normal,  viewDir)；<br></code></pre></td></tr></table></figure>
@@ -1028,17 +1029,17 @@
 <figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs glsl">UnityIndirect indirectLight;<br>indirectLight.diffuse = <span class="hljs-number">0</span>;<br>indirectLight.specular = <span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
 
 <p>frag完整代码</p>
-<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs glsl">float4 frag (v2f i) : SV_TARGET &#123;<br>	<br>    <span class="hljs-comment">//albedo</span><br>    i.normal = <span class="hljs-built_in">normalize</span>(i.normal);<br>    float3 lightDir = _WorldSpaceLightPos0.xyz;<br>    float3 viewDir = <span class="hljs-built_in">normalize</span>(_WorldSpaceCameraPos - i.worldPos);<br>    float3 lightColor = _LightColor0.rgb;<br>    float3 albedo = tex2D(_MainTex, i.uv).rgb * _Tint.rgb;<br>	<br>    <span class="hljs-comment">//specular</span><br>    float3 specularTint;<br>    <span class="hljs-type">float</span> oneMinusReflectivity;<br>    albedo = DiffuseAndSpecularFromMetallic(<br>	albedo, _Metallic, specularTint, oneMinusReflectivity);<br>    <br>    <span class="hljs-comment">//两个结构体          </span><br>    UnityLight light;<br>    light.color = lightColor;<br>    light.dir = lightDir;<br>    light.ndotl = DotClamped(i.normal, lightDir);<br><br>    UnityIndirect indirectLight;<br>    indirectLight.diffuse = <span class="hljs-number">0</span>;<br>    indirectLight.specular = <span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-comment">//Unity内置pbs函数</span><br>    <span class="hljs-keyword">return</span> UNITY_BRDF_PBS(<br>    albedo, specularTint,<br>    oneMinusReflectivity, _Smoothness,<br>    i.normal, viewDir,<br>    light, indirectLight);<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs glsl">float4 frag (v2f i) : SV_TARGET &#123;<br>	<br>    <span class="hljs-comment">//albedo</span><br>    i.normal = <span class="hljs-built_in">normalize</span>(i.normal);<br>    float3 lightDir = _WorldSpaceLightPos0.xyz;<br>    float3 viewDir = <span class="hljs-built_in">normalize</span>(_WorldSpaceCameraPos - i.worldPos);<br>    float3 lightColor = _LightColor0.rgb;<br>    float3 albedo = tex2D(_MainTex, i.uv).rgb * _Tint.rgb;<br>	<br>    <span class="hljs-comment">//specular</span><br>    float3 specularTint;<br>    <span class="hljs-type">float</span> oneMinusReflectivity;<br>    albedo = DiffuseAndSpecularFromMetallic(albedo, _Metallic, specularTint, oneMinusReflectivity);<br>    <br>    <span class="hljs-comment">//两个结构体          </span><br>    UnityLight light;<br>    light.color = lightColor;<br>    light.dir = lightDir;<br>    light.ndotl = DotClamped(i.normal, lightDir);<br><br>    UnityIndirect indirectLight;<br>    indirectLight.diffuse = <span class="hljs-number">0</span>;<br>    indirectLight.specular = <span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-comment">//Unity内置pbs函数</span><br>    <span class="hljs-keyword">return</span> UNITY_BRDF_PBS(<br>    albedo, specularTint,<br>    oneMinusReflectivity, _Smoothness,<br>    i.normal, viewDir,<br>    light, indirectLight);<br><br>&#125;<br></code></pre></td></tr></table></figure>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://catlikecoding.com/unity/tutorials/rendering/part-4/">像猫一样编程~04</a></p>
 <!-- more -->
 
-<h1 id="Toc"><a href="#Toc" class="headerlink" title="Toc"></a>Toc</h1><a href="/2021/01/note_shader_01.render-pipline/" title="Unity Shader学习笔记：01-渲染管线">Unity Shader学习笔记：01-渲染管线</a>
+<h1 id="Toc"><a href="#Toc" class="headerlink" title="Toc"></a>Toc</h1><p><a href="/2021/01/note_shader_01.render-pipline/" title="Unity Shader学习笔记：01-渲染管线">Unity Shader学习笔记：01-渲染管线</a></p>
 
-<a href="/2021/01/note_shader_02.shader-fundamentals/" title="Unity Shader学习笔记：02-着色器基础">Unity Shader学习笔记：02-着色器基础</a>
+<p><a href="/2021/01/note_shader_02.shader-fundamentals/" title="Unity Shader学习笔记：02-着色器基础">Unity Shader学习笔记：02-着色器基础</a></p>
 
-<a href="/2021/01/note_shader_03.mix-textures/" title="Unity Shader学习笔记：03-纹理混合">Unity Shader学习笔记：03-纹理混合</a>
+<p><a href="/2021/01/note_shader_03.mix-textures/" title="Unity Shader学习笔记：03-纹理混合">Unity Shader学习笔记：03-纹理混合</a></p>
 
-<p><u>Unity Shader学习笔记：04-光照模型</u></p>
+<p><u><strong>Unity Shader学习笔记：04-光照模型</strong></u></p>
 <hr>
       </section>
       <section class="extra">
